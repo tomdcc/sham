@@ -2,6 +2,7 @@ package grails.plugin.sham
 
 import grails.plugin.spock.ControllerSpec
 import grails.plugin.fixtures.FixtureLoader
+import spock.lang.Unroll
 
 class ShamControllerSpec extends ControllerSpec {
 
@@ -22,13 +23,11 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to home page'
-            controller.redirectArgs.uri == '/'
+            controller.redirectArgs.uri.startsWith("/?_nocache=")
     }
 
+	@Unroll
     def "controller can apply fixtures and redirect to a uri"() {
-        given:
-            String targetUri = '/someTarget/foo'
-
         when: 'call controller with fixtures and redirect uri'
             controller.params.fixtures = fixtureNames
             controller.params.redirectUri = targetUri
@@ -38,13 +37,16 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to target uri'
-            controller.redirectArgs.uri == targetUri
+            controller.redirectArgs.uri.startsWith("$targetUri${join}_nocache=")
+
+		where:
+			targetUri         | join
+			'/someTarget/foo' | '?'
+			'/someTarget?foo' | '&'
     }
 
+	@Unroll
     def "controller can apply fixtures and redirect to a url"() {
-        given:
-            String targetUrl = 'http:/www.foo.com/someTarget/foo'
-
         when: 'call controller with fixtures and redirect url'
             String[] fixtureNames = ["fixture1", "fixture2", "fixture3" ] as String[]
             controller.params.fixtures = fixtureNames
@@ -55,7 +57,11 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to target uri'
-            controller.redirectArgs.url == targetUrl
+            controller.redirectArgs.url.startsWith("$targetUrl${join}_nocache=")
+		where:
+			targetUrl                          | join
+			'http:/www.foo.com/someTarget/foo' | '?'
+			'http:/www.foo.com/someTarget?foo' | '&'
     }
 
 }

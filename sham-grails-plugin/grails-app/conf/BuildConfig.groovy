@@ -33,9 +33,11 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ":tomcat:1.3.7"
-        compile ":hibernate:1.3.7"
-        compile ":spock:0.5-groovy-1.7"
+		build(':release:1.0.1') {
+			export = false
+			excludes "svn"
+		}
+        test ":spock:0.5-groovy-1.7"
         test ':fixtures:1.1'
     }
 }

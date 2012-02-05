@@ -6,5 +6,6 @@
 .gradle
 *.log
 *.zip
+*.zip.sha1
 build/
 out/

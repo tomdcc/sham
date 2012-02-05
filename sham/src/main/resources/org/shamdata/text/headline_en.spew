@@ -1,0 +1,484 @@
+\* National Enquirer Headlines.
+\*
+%SPIRITUAL
+Spiritual
+Clairvoyant
+Telepathic
+Telekinetic
+%RELATIVE
+Father
+Uncle
+Grandfather
+Grandmother
+Son
+Daughter
+Mother
+Aunt
+Postman
+Accountant
+Dog Catcher
+IRS Man
+Hairdresser
+Avon Lady
+%WEAPON{a}
+{|a }Meat Cleaver
+{|a }Hatchet
+{|a }Machete
+{|a }Phased Plasma Rifle
+{|a }Chain Saw
+{|a }Samurai Sword
+{|an }Axe
+{|a }Machine Gun
+{|an }Anti-tank weapon
+\*{\FRUIT|\FRUIT/a}
+\FRUIT/&
+%GHOST
+Ghost
+Evil Spirt
+Poltergist
+Demon
+Phantom
+Bogie Man
+%RELIGION
+Buddist
+Methodist
+Baptist
+Islamic
+Moslem
+Roman Catholic
+Atheist
+%UFFO
+UFO
+Flying Saucer
+Space Ship
+Mother Ship
+Space cruiser
+USS enterprise
+Galactic Space Cruiser
+%PLANET
+Pluto
+Mars
+Venus
+Mercury
+Neptune
+Saturn
+Jupiter
+The Moon
+%ET{s}
+Extra-Terrestrial{|s}
+E.T.{|'s}
+Space Alien{|s}
+Being{|s}
+Space Being{|s}
+Cyborg{|s}
+Humanoid{|s}
+Alien{|s}
+%DRUG
+Heroin
+LSD
+Angel Dust
+Coke
+Cocaine
+Crack
+Quaaludes
+Amphetamines
+%FRUIT{as}
+{|a |}Mango{||es}
+{|a |}Tomato{||es}
+{|a |}Banana{||s}
+{|a |}Cherr{y|y|ies}
+{|an |}Apple{||s}
+{|a |}Plum{||s}
+{|a |}Pear{||s}
+{|an |}Orange{||s}
+{|a |}Tangerine{||s}
+{|a |}Lemon{||s}
+{|a |}Lime{||s}
+%MADNESS
+Crazed
+Drug-Crazed
+Insane
+Manic Depressive
+Neurotic
+Psychotic
+Psychopathic
+Devoted
+Religious
+Fanatical
+Pathological
+%KILLER{s}
+(2)\KILLERX/&
+\MADNESS \KILLERX/&
+%KILLERX{s}
+\FRUIT/&
+Great White Shark{|s}
+Terminator{|s}
+Ewok{|s}
+Wombat{|s}
+Bee{|s}
+Wasp{|s}
+Whale{|s}
+Shark{|s}
+Lion{|s}
+Dolphin{|s}
+Elephant{|s}
+Worm{|s}
+Clam{|s}
+Kitten{|s}
+Lobster{|s}
+Tiger{|s}
+Leopard{|s}
+Panda{|s}
+Crocodile{|s}
+%MCELEB
+Ronald Reagan
+Frank Sinatra
+Michael Jackson
+Prince
+Mick Jagger
+Donny Osmond
+Lou Albano
+Sylvester Stallone
+Sean Penn
+Bob Dylan
+David Letterman
+Johnny Carson
+Muammar Quadaffi
+Moammar Khadafy
+Kenny Rogers
+Burt Reynolds
+John Davidson
+Richard Nixon
+Prince Charles
+George Lucas
+%FCELEB
+Princess Diana
+Queen Elizabeth
+Nancy Reagan
+Linda Ronstadt
+Maggie Trudeau
+Liz Taylor
+Tina Turner
+Dolly Parton
+Cher
+Jane Fonda
+Eva Gabor
+Joan Rivers
+Madonna
+Cindi Lauper
+%BABY{s}
+Bab{y|ies}
+Child{|ren}
+Son{|s}
+Daughter{|s}
+%FDEAD\* female persons long dead
+Cleopatra
+Joan of Arc
+Lady Godiva
+Queen Victoria
+The Queen of Sheba
+%DFCELEB\* dead female 'celebrities'
+Marilyn Monroe
+Janis Joplin
+(4)\FDEAD
+%MDEAD\* male persons long dead
+Atilla the Hun
+King Henry VIII
+Abraham Lincoln
+George Washington
+Moses
+%DMCELEB\* dead male celebs
+(3)Elvis
+Jimi Hendrix
+Jim Morrison
+John F. Kennedy
+Bing Crosby
+John Lennon
+JFK
+Groucho Marx
+Harry Chapin
+\MDEAD
+%DCELEB
+\DMCELEB
+\DFCELEB
+%DEAD
+\FDEAD
+\MDEAD
+%EAT{sd}
+{eat|eats|ate}
+kidnap{|s|ped}
+{take|takes|took}
+kill{|s|ed}
+devour{|s|ed}
+maim{|s|ed}
+injure{|s|d}
+rape{|s|d}
+%SAY{s}
+Say{|s}
+Reveal{|s}
+\*Admit{|s}
+Claim{|s}
+Insist{|s}
+\*Warn{|s}
+%DOCTOR{s}
+Doctor{|s}
+Psychologist{|s}
+Psychiatrist{|s}
+Physician{|s}
+Neurologist{|s}
+Dentist{|s}
+Pediatrician{|s}
+Vetrinarian{|s}
+Optician{|s}
+%SCIENTIST{s}
+Scientist{|s}
+\DOCTOR/&
+Chemist{|s}
+Physicist{|s}
+Meta-physicist{|s}
+Engineer{|s}
+Computer Scientist{|s}
+Professor{|s}
+Technician{|s}
+Whiz Kid{|s}
+Brain Boff{|s}
+AI Expert{|s}
+Pattern Recognition Researcher{|s}
+%NATIONALITY
+Russian
+Soviet
+British
+Polish
+French
+Belgian
+Swiss
+German
+Spanish
+Mexican
+Ukranian
+American
+Canadian
+Albanian
+Australian
+Chinese
+Japanese
+%DISEASE
+Herpes
+AIDS
+Flu
+Leprosy
+VD
+a Backache
+Chicken Pox
+Malaria
+Laryngitis
+a Nosebleed
+Tuberculosis
+Cancer
+%FICTCHAR
+Santa Claus
+Bigfoot
+Snow White
+God
+Bhudda
+Mary Poppins
+The Loch Ness Monster
+Yogi Bear
+James Bond
+The Wicked Witch of the West
+The Wizard of Oz
+Captain Kirk
+The Tooth Fairy
+Kermit the frog
+Batman
+Superman
+Spiderman
+%KILL{sd}
+Kill{|s|ed}
+Murder{|s|ed}
+Maim{|s|ed}
+Slaughter{|s|ed}
+Mutilate{|s|d}
+Sho{ot|ots|t}
+Mug{|s|ged}
+%NUMBER
+\NUMBER1
+(2)\NUMBER2
+Twenty-\NUMBER1
+Thirty-\NUMBER1
+Forty-\NUMBER1
+Fifty-\NUMBER1
+Sixty-\NUMBER1
+Seventy-\NUMBER1
+Eighty-\NUMBER1
+Ninety-\NUMBER1
+%NUMBER1
+Two
+Three
+Four
+Five
+Six
+Seven
+Eight
+Nine
+%NUMBER2
+Ten
+Eleven
+Twelve
+Thirteen
+Fourteen
+Fifteen
+Sixteen
+Seventeen
+Eighteen
+Nineteen
+%FOOD{a}
+{|a }Taco
+(5)\FRUIT/&
+{|an }Enchilada
+{|a }Burrito
+{|a }Watermelon
+{|a }Triple Ice Cream Cone
+{|a }Tostada
+%PERSON{s}
+\KILLER/&
+Football player{|s}
+{Man|Men}
+Wom{an|en}
+TV Personalit{y|ies}
+Game Show Host{|s}
+Politician{|s}
+\SCIENTIST/&
+\DOCTOR/&
+\NATIONALITY \SCIENTIST/&
+\NATIONALITY \DOCTOR/&
+Unemployed \SCIENTIST/&
+Student{|s}
+Air Traffic Controller{|s}
+\NATIONALITY Student{|s}
+\ET/&
+%AIRCRAFT
+Airplane
+Helicopter
+Airship
+Hot Air Balloon
+Hang Glider
+Helium Balloon
+UFO
+Jet Fighter
+747
+DC-10
+%CELEB
+\MCELEB
+\FCELEB
+%PLACE
+Redwood City
+Australia
+Nevada
+Austin, Texas
+Magrathea
+Outer Space
+Memphis
+England
+San Francisco
+Castro Street
+San Jose
+L.A.
+New York
+Orlando, Florida
+Missouri
+Middle Earth
+The Shire
+Barsoom
+Planet Vulcan
+Fremont Airport
+Tokyo
+Transylvania
+Times Square
+Wall Street
+San Rafael
+Israel
+Beirut
+Mordor
+BBC television center
+Dr. Who's Tardis
+Stalingrad
+Moscow
+Amsterdam
+Manchester
+Edinburgh
+Red Square
+Kremlin
+Mimico
+Hollywood
+Daytona Beach
+Salt Lake City
+Mississauga
+Majorca
+Bangkok
+Monte Carlo
+Lisbon
+Barrie
+Nirvana
+%MAIN
+\CONST.\!
+%INVOLVED
+.\! -- \CELEB Reveals All
+.\! -- \CELEB May Be Involved
+%PROOF
+\PHOTO
+\PHOTO
+.\! -- \NATIONALITY \SCIENTIST/s Offer Undeniable Proof
+%PHOTO
+.\! -- Exclusive Pictures Inside
+.\! -- Photographic Evidence Offers Proof
+.\! -- National Enquirer Photo Exclusive
+%CONST
+"Killer \KILLER/s From \PLANET \EAT/d My \BABY" \SAY/s \CELEB\PHOTO
+"\CELEB Is Really \ET From \PLANET" \SAY/s \CELEB
+"\CELEB Is Really \ET From \PLANET" \SAY \NATIONALITY \SCIENTIST/s
+\MCELEB and \FCELEB Secretly Wed in \PLACE, It's Official\PHOTO
+Eating \FRUIT/s Can Give You \DISEASE, \SAY \NATIONALITY \DOCTOR/s
+"\ET/s From \PLANET Gave Me \DISEASE" \SAY/s \CELEB
+"\FICTCHAR is for real".\! -- \NATIONALITY \SCIENTIST/s come up with undeniable proof
+"\MCELEB is really my father", \SAY/s \CELEB
+"\FCELEB is really my mother", \SAY/s \CELEB
+\NATIONALITY \SCIENTIST/s discover lost city of \PLACE
+\CELEB \KILL/s \NUMBER \PERSON/s in drunken rampage
+\PERSON, stoned on \DRUG, \KILL/s \NUMBER \PERSON/s
+\CELEB Falls \NUMBER thousand feet out of \AIRCRAFT ... and survives
+"\ET/s From \PLANET Landed In My Garden And \EAT/d \NUMBER \FRUIT/s" \SAY/s \CELEB
+\FCELEB Gives birth to \NUMBER \BABY/s\INVOLVED
+\RELIGION Monks report \UFFO Sighting in \PLACE\! "They Came From \PLANET!"\PROOF
+Real Life Ghost Busters Exorcise \GHOST from \CELEB/ 's home in \PLACE
+\BABY \KILL/d by Pet \KILLER\PHOTO
+Amazing \MADNESS \KILLERX from \PLACE
+"I Chopped My \RELATIVE To Death With \WEAPON/a" -- \PERSON
+\PERSON Goes Berserk And \KILL/s \NUMBER \PERSON/s With \WEAPON
+\FCELEB Tells Of Night Of Terror With \MCELEB. "He Threatened Me With \WEAPON/a"
+\MCELEB Tells Of Night Of Terror With \FCELEB. "She Threatened Me With \WEAPON/a"
+\FRUIT/s Have \SPIRITUAL Powers, \SAY \NATIONALITY \SCIENTIST/s\PROOF
+\PERSON Sees Face Of \FICTCHAR In \FOOD/a
+"Elvis Died From Eating \FRUIT/s", \SAY/s \CELEB\PROOF
+\NATIONALITY \SCIENTIST/s Produce \SPIRITUAL \KILLER Girl
+\PERSON \KILL/s \NUMBER \PERSON/s With \WEAPON,\!Then Is Acquitted By Jury
+\NUMBER Years For \MADNESS \WEAPON Murderer. "I Would Do It Again" Says \CELEB
+\PERSON Struck By Lightning -- \NUMBER Times
+Jury Acquit Notorious \WEAPON Murderer From \PLACE
+\MCELEB and \FCELEB Seen Together in \PLACE. "Is It Love?"
+\PERSON/ 's Bizarre Claim: "\NATIONALITY \SCIENTIST/s Planted Mind Control Device In My Head"
+"Does \FICTCHAR Exist?" \NATIONALITY \SCIENTIST/s Offer New Evidence
+Travelling To \PLACE In A Stolen \AIRCRAFT -- \CELEB Tells All\PHOTO
+"\FICTCHAR \EAT/d My \BABY", \SAY/s \PERSON
+"\MCELEB is the Father Of My \BABY", \SAY/s \MADNESS \PERSON
+"\FCELEB is the Mother Of My \BABY", \SAY/s \MCELEB\INVOLVED
+\FCELEB Files Paternity Suit Against \FCELEB -- Claiming Sex Change
+"I Am The Reincarnation of \FDEAD", \SAY/s \FCELEB
+"I Am The Reincarnation of \MDEAD", \SAY/s \MCELEB
+\SCIENTIST/s Discover \FCELEB Was Married to \MDEAD in Previous Life
+"I spoke to \DCELEB through \FRUIT/a" \SAY/s \PERSON
+"I Saw \DCELEB Alive and Well in \PLACE" \SAY/s \PERSON
+\NATIONALITY \SCIENTIST/s resurrect \DCELEB\PROOF
+In \MADNESS Rage, \PERSON \KILL/s \NUMBER, Self
+"\CELEB Is Addicted to \DRUG"\PROOF
+%%

@@ -1,0 +1,31 @@
+\* this file requires that a FAKEDOMAINSUFFIX class is passed in, depending on whether you'd like
+\* real looking emails or almost-real looking email addresses
+%MAIN
+\USER@\DOMAIN
+%USER
+\USERNAME
+\FIRSTNAME.\LASTNAME
+\INITIAL1\LASTNAME
+%DOMAIN
+\REALDOMAIN\FAKEDOMAINSUFFIX
+%REALDOMAIN
+gmail.com
+hotmail.com
+yahoo.com
+aol.com
+\RANDOMCOMPANY.\DOMAINSUFFIX
+%RANDOMCOMPANY
+slashdot
+toms-potting-world
+energizedwork
+sa
+coopers
+farmersunion
+%DOMAINSUFFIX
+org
+net
+gov
+com
+com.au
+co.uk
+%%

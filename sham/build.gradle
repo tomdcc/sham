@@ -1,0 +1,33 @@
+apply plugin: "java"
+apply plugin: "groovy"
+apply plugin: 'maven'
+
+sourceCompatibility = 1.5
+
+group = 'org.shamdata'
+artifactId = 'sham'
+
+dependencies {
+  groovy "org.codehaus.groovy:groovy-all:1.8.0"
+  compile "javax.servlet:servlet-api:2.5"
+  testCompile "org.spockframework:spock-core:0.5-groovy-1.8"
+  testCompile "org.springframework:spring-test:3.1.0.RELEASE"
+  testCompile "org.springframework:spring-core:3.1.0.RELEASE"
+}
+
+install.repositories.mavenInstaller.pom.whenConfigured { pom ->
+	pom.project {
+		url 'http://www.shamdata.org'
+		licenses {
+			license {
+				name 'The MIT License (MIT)'
+				url 'http://www.opensource.org/licenses/mit-license.php'
+				distribution 'repo'
+			}
+		}
+	}
+
+    // don't want to include test deps, or servlet context since it's not always required,
+    // and users who want it will have it provided
+	pom.dependencies.clear()
+}

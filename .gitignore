@@ -1,0 +1,10 @@
+*.ipr
+*.iml
+*.iws
+.project
+.classpath
+.gradle
+*.log
+*.zip
+build/
+out/

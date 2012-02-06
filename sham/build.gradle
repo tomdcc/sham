@@ -1,6 +1,7 @@
 apply plugin: "java"
 apply plugin: "groovy"
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.5
 
@@ -15,9 +16,14 @@ dependencies {
   testCompile "org.springframework:spring-core:3.1.0.RELEASE"
 }
 
-install.repositories.mavenInstaller.pom.whenConfigured { pom ->
+signing {
+    sign configurations.archives
+}
+
+def fixPom = { pom ->
 	pom.project {
-		url 'http://www.shamdata.org'
+		packaging 'jar'
+		url 'http://github.com/tomdcc/sham'
 		licenses {
 			license {
 				name 'The MIT License (MIT)'
@@ -25,9 +31,40 @@ install.repositories.mavenInstaller.pom.whenConfigured { pom ->
 				distribution 'repo'
 			}
 		}
+		scm {
+			connection 'git://github.com/tomdcc/sham.git'
+			developerConnection 'git@github.com:tomdcc/sham.git'
+			url 'git://github.com/tomdcc/sham.git'
+		}
+		developers {
+			developer {
+				id 'tomdcc'
+				name 'Tom Dunstan'
+			}
+		}
 	}
+	pom.whenConfigured { thepom ->
+		// don't want to include test deps, or servlet context since it's not always required,
+		// and users who want it will have it provided
+		thepom.dependencies.clear()
+	}
+}
 
-    // don't want to include test deps, or servlet context since it's not always required,
-    // and users who want it will have it provided
-	pom.dependencies.clear()
+def snapshotRepo = 'https://oss.sonatype.org/content/repositories/snapshots'
+def releaseRepo = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+def sonatypeRepo = version.endsWith('-SNAPSHOT') ?  snapshotRepo : releaseRepo
+uploadArchives {
+    repositories {
+        mavenDeployer {
+			fixPom(pom);
+            beforeDeployment { deployment -> signPom(deployment) }
+  			repository(url: sonatypeRepo) {
+				authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+		}
+
+    }
+}
+install.repositories.mavenInstaller {
+	fixPom(pom)
 }

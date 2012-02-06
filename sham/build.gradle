@@ -20,9 +20,26 @@ signing {
     sign configurations.archives
 }
 
+task sourcesJar(type: Jar, dependsOn:classes) {
+     classifier = 'sources'
+     from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn:javadoc) {
+     classifier = 'javadoc'
+     from javadoc.destinationDir
+}
+
+artifacts {
+     archives sourcesJar
+     archives javadocJar
+}
+
 def fixPom = { pom ->
 	pom.project {
 		packaging 'jar'
+		name 'Sham'
+		description 'A test data generation library'
 		url 'http://github.com/tomdcc/sham'
 		licenses {
 			license {

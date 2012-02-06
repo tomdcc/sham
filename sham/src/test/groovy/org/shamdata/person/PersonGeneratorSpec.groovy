@@ -30,9 +30,9 @@ class PersonGeneratorSpec extends Specification {
             twitterUsername == person.twitterUsername
 
 		where:
-			seed | isFakeEmail | gender | givenNames              | lastName | username       | email                    | dob                 | twitterUsername
-			0    | true        | FEMALE | ['Louise', 'Elizabeth'] | 'Foster' | 'louise46'     | 'lfoster@gmail.com.bv'   | new Date(46, 3, 17) | '@louisefoster'
-			-20  | false       | MALE   | ['Richard', 'Jack']     | 'Taylor' | 'shyrichard36' | 'richard.taylor@aol.com' | new Date(73, 1, 4)  | '@gorgeousdude73'
+			seed | isFakeEmail | gender | givenNames              | lastName | username       | email                    | dob                  | twitterUsername
+			0    | true        | FEMALE | ['Louise', 'Elizabeth'] | 'Foster' | 'louise46'     | 'lfoster@gmail.com.bv'   | new Date(46, 2, 12)  | '@louisefoster'
+			-20  | false       | MALE   | ['Richard', 'Jack']     | 'Taylor' | 'shyrichard36' | 'richard.taylor@aol.com' | new Date(72, 11, 30) | '@gorgeousdude72'
 	}
 
 	@Unroll({"generate gender as expected for specified gender $gender"})

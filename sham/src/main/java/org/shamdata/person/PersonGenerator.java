@@ -87,6 +87,7 @@ public class PersonGenerator {
         Calendar cal = Calendar.getInstance(locale);
          // just gen adults for now
         cal.set(Calendar.YEAR, 1930);
+        cal.set(Calendar.DAY_OF_YEAR, 0);
         int sixtyIshYears = 365 * 60;
         cal.add(Calendar.DAY_OF_YEAR, random.nextInt(sixtyIshYears));
         cal.set(Calendar.HOUR_OF_DAY, 0);

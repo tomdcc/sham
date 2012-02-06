@@ -2,5 +2,5 @@ subprojects {
 	repositories {
 		mavenCentral()
 	}
-	version = '0.1-SNAPSHOT'
+	version = '0.1'
 }

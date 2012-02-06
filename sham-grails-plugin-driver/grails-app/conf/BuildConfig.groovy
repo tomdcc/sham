@@ -32,8 +32,7 @@ grails.project.dependency.resolution = {
 
 		compile ':fixtures:1.1'
 		compile ':build-test-data:1.1.2'
-//		compile 'com.energizedwork:remote-fixtures:1.0-beans-5-SNAPSHOT'
-		compile ':sham:0.1-SNAPSHOT'
+		compile ':sham:0.1'
 
 		compile ':cache-headers:1.1.5'
 

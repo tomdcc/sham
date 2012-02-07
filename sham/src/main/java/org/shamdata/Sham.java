@@ -9,11 +9,13 @@ import org.shamdata.image.ImagePicker;
 import org.shamdata.image.ServletContextImagePicker;
 
 import javax.servlet.ServletContext;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
@@ -139,4 +141,31 @@ public class Sham {
     public void setImageBaseDir(String imageBaseDir) {
         this.imageBaseDir = imageBaseDir;
     }
+
+	public void setSeed(long seedVal) {
+		try {
+			Field f = Random.class.getDeclaredField("seed"); //NoSuchFieldException
+			f.setAccessible(true);
+			AtomicLong seed = (AtomicLong) f.get(random);
+			seed.set(seedVal);
+		} catch(NoSuchFieldException e) {
+			throw new RuntimeException("Couldn't access seed field - perhaps JDK Random object not laid out as expected?", e);
+		} catch(IllegalAccessException e) {
+			throw new RuntimeException("Couldn't access seed field - are you running under a SecurityManager?", e);
+		} catch(SecurityException e) {
+			throw new RuntimeException("Couldn't access seed field - are you running under a SecurityManager?", e);
+		}
+	}
+
+	public Long getSeed() {
+		try {
+			Field f = Random.class.getDeclaredField("seed"); //NoSuchFieldException
+			f.setAccessible(true);
+			AtomicLong seed = (AtomicLong) f.get(random);
+			return seed == null ? null : seed.get();
+		} catch(Exception e) {
+			// not allowed to access
+			return null;
+		}
+	}
 }

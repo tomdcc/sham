@@ -2,6 +2,7 @@ package grails.plugin.sham
 
 import grails.plugin.spock.IntegrationSpec
 import org.shamdata.Sham
+import org.apache.log4j.Logger
 
 class PluginSpec extends IntegrationSpec {
 
@@ -19,5 +20,14 @@ class PluginSpec extends IntegrationSpec {
 		
 		and: "it's the same instance as Sham.instance returns"
 			sham.is(Sham.instance)
+
+		when: 'app asks for shamLog'
+			def shamLog = grailsApplication.mainContext.shamLog
+
+		then: "it's there"
+			shamLog
+
+		and: "it's a Logger instance"
+			shamLog instanceof Logger
 	}
 }

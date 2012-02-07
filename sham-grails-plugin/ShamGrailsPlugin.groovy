@@ -1,8 +1,12 @@
 import org.shamdata.Sham
+import org.apache.log4j.Logger
+import org.apache.log4j.FileAppender
+import org.apache.log4j.SimpleLayout
+import org.apache.log4j.Level
 
 class ShamGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "0.2-SNAPSHOT"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
@@ -32,6 +36,10 @@ Brief description of the plugin.
 			bean.factoryMethod = "getInstance"
 			imageBaseDir = '/images'
 		}
+		shamLog(Logger) { bean ->
+			bean.factoryMethod = "getInstance"
+			bean.constructorArgs = ["sham"]
+		}
     }
 
     def doWithDynamicMethods = { ctx ->
@@ -41,7 +49,10 @@ Brief description of the plugin.
     def doWithApplicationContext = { applicationContext ->
 		applicationContext.sham.servletContext = applicationContext.servletContext
 
-		// TODO Implement post initialization spring config (optional)
+		def logger = applicationContext.shamLog
+		logger.additivity = false
+		logger.addAppender(new FileAppender(new SimpleLayout(), "sham.log"))
+		logger.level = Level.DEBUG
     }
 
     def onChange = { event ->

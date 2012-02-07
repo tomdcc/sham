@@ -3,6 +3,8 @@ package grails.plugin.sham
 import grails.plugin.spock.ControllerSpec
 import grails.plugin.fixtures.FixtureLoader
 import spock.lang.Unroll
+import org.shamdata.Sham
+import org.apache.log4j.Logger
 
 class ShamControllerSpec extends ControllerSpec {
 
@@ -63,5 +65,62 @@ class ShamControllerSpec extends ControllerSpec {
 			'http:/www.foo.com/someTarget/foo' | '?'
 			'http:/www.foo.com/someTarget?foo' | '&'
     }
+
+	@Unroll
+	def "controller logs seed to log"() {
+		given: 'sham instance with known seed'
+			def sham = new Sham()
+			sham.seed = seed
+			controller.sham = sham
+			def shamLog = Mock(Logger)
+			controller.shamLog = shamLog
+		
+		when: 'call logSeed'
+			controller.params.prefix = prefix
+			controller.logSeed()
+		
+		then: 'logger called with expected message'
+			1 * shamLog.info(expectedValue)
+		
+		and: 'returns seed'
+			controller.renderArgs.text == seed
+		
+		where:
+			seed | prefix  | expectedValue
+			1001 | null    | "sham seed: 1001"
+			1234 | 'o hai' | "o hai, sham seed: 1234"
+	}
+
+	@Unroll
+	def "controller can set sham seed"() {
+		given: 'sham instance'
+			def sham = new Sham()
+			controller.sham = sham
+
+			def shamLog = Mock(Logger)
+			controller.shamLog = shamLog
+
+		when:
+			controller.params.seed = seed as String
+			controller.params.prefix = prefix
+			controller.setSeed()
+
+		then: 'seed set'
+			sham.seed == seed
+
+		and: 'expected log message logged'
+			1 * shamLog.info(expectedLog)
+
+		and: 'returns seed'
+			controller.renderArgs.text == seed
+
+		where:
+			seed | prefix  | expectedLog
+			1001 | null    | "set sham seed to: 1001"
+			1234 | 'o hai' | "o hai, set sham seed to: 1234"
+
+	}
+
+
 
 }

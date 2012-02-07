@@ -8,8 +8,8 @@ library
 ! set seed from system property
 
  * person
-!  * address
-!  * phone
+  * address
+  * phone
   * name
    * rewrite using spew gen
    * simpler, allows weights etc
@@ -25,22 +25,18 @@ library
  * products
 !  * spew gen name
 
+! limit sentence length
+
 * locale stuff
 
 * javadoc
 
 plugin
 ------
- * config
-  * image base dir
-
 
 plugin driver
 -------------
- * domain model in functional tests for e.g. news site
- * web page to demo layout on
- * create fixtures using sham
-
+ * flesh out domain model to show off properly
 
 
 build

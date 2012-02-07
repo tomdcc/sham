@@ -140,4 +140,24 @@ class ShamSpec extends Specification {
         where:
             num << [1, 3, 5]
     }
+	
+	def "set seed sets seed to given state"() {
+		given: 'sham instance'
+			def sham = new Sham()
+			long newSeed = 1234L
+
+		when: 'set seed'
+			sham.seed = newSeed
+
+		then: 'set on underlying random instance'
+			sham.random.seed.get() == newSeed
+	}
+
+	def "get seed returns seed to given state"() {
+		given: 'sham instance'
+			def sham = new Sham()
+
+		expect: 'get seed return underlying random seed'
+			sham.seed == sham.random.seed.get()
+	}
 }

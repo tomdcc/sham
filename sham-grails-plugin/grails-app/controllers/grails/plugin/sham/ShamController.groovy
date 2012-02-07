@@ -1,8 +1,12 @@
 package grails.plugin.sham
 
+import grails.converters.JSON
+
 class ShamController {
 
 	def fixtureLoader
+	def sham
+	def shamLog
 
 	def run = {
 		if(!params.fixtures) {
@@ -23,5 +27,25 @@ class ShamController {
 
 	private String joiner(String uri) {
 		uri.contains('?') ? '&' : '?'
+	}
+	
+	def logSeed = {
+		shamLog.info("${params.prefix ? params.prefix + ', ' : ''}sham seed: $sham.seed")
+		getSeed()
+	}
+
+	def setSeed = {
+		sham.seed = params.seed as long
+		shamLog.info("${params.prefix ? params.prefix + ', ' : ''}set sham seed to: $sham.seed")
+		getSeed()
+	}
+
+	def getSeed = {
+		def seed = sham.seed
+		if (request.xhr) {
+			 render seed as JSON
+		} else {
+			render text: seed
+		}
 	}
 }

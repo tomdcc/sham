@@ -8,6 +8,10 @@ import org.shamdata.test.TestUtil
 
 class ShamSpec extends Specification {
 
+	def cleanup() {
+		System.properties.remove(Sham.SHAM_SEED_SYSTEM_PROPERTY_KEY)
+	}
+
     def "getInstance creates new instance if none set"() {
         given: 'null instance'
             Sham.setInstance(null)
@@ -160,4 +164,17 @@ class ShamSpec extends Specification {
 		expect: 'get seed return underlying random seed'
 			sham.seed == sham.random.seed.get()
 	}
+
+	def "sham loads seed from system property if found"() {
+		given: 'system property'
+			def seed = 1234L
+			System.setProperty(Sham.SHAM_SEED_SYSTEM_PROPERTY_KEY, seed as String)
+		
+		when: 'create new instance'
+			def sham = new Sham()
+		
+		then: 'underlying seed is as specified'
+			sham.seed == seed
+	}
+	
 }

@@ -21,6 +21,9 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  */
 public class Sham {
+	
+	public static final String SHAM_SEED_SYSTEM_PROPERTY_KEY = "sham.seed";
+	
     private static Sham instance = null;
     private Random random;
     // config
@@ -35,6 +38,10 @@ public class Sham {
 
     public Sham() {
         random = new Random();
+		String seedSysProp = System.getProperty(SHAM_SEED_SYSTEM_PROPERTY_KEY);
+		if(seedSysProp != null) {
+			setSeed(Long.parseLong(seedSysProp));
+		}
     }
 
     public static void setInstance(Sham instance) {

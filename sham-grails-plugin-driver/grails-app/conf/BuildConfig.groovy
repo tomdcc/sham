@@ -21,6 +21,10 @@ grails.project.dependency.resolution = {
 		test "org.seleniumhq.selenium:selenium-firefox-driver:$webdriverVersion"
 		test "org.codehaus.geb:geb-spock:0.6.0"
 
+		test('org.codehaus.groovy.modules.http-builder:http-builder:0.5.1') {
+			excludes "xml-apis", 'groovy'
+		}
+
 		// these only here because intellij isn't picking up deps of the plugin project atm, wtf
 //		test "org.objenesis:objenesis:1.2"
 //		test "org.shamdata:sham:0.1-SNAPSHOT"

@@ -95,6 +95,11 @@ public class Sham {
         return textGenerator.nextSentence();
     }
 
+    public String nextSentence(int maxChars) {
+        initTextGenerator();
+        return textGenerator.nextSentence(maxChars);
+    }
+
     public String nextParagraph() {
         initTextGenerator();
         return textGenerator.nextParagraph();

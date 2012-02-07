@@ -106,6 +106,20 @@ class ShamSpec extends Specification {
             sentence.substring(sentence.length() - 1) in ['!', '?', '.']
     }
 
+    def "nextSentence with max chars returns new sentence"() {
+        given: 'new sham instance'
+            def sham = new Sham()
+
+        when: 'ask for a sentence'
+            def sentence = sham.nextSentence(30)
+
+        then: 'get something looking like a sentence'
+            sentence
+            sentence.length() > 0
+            sentence.length() <= 30
+            sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+    }
+
     def "nextParagraph returns new paragraph"() {
         given: 'new sham instance'
             def sham = new Sham()

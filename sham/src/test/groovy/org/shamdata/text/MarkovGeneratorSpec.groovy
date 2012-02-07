@@ -23,6 +23,28 @@ class MarkovGeneratorSpec extends Specification {
             sentence.substring(sentence.length() - 1) in ['!', '?', '.']
     }
 
+    def "nextSentence returns new no longer than specified length"() {
+		when: 'have a max length in mind'
+			def max = 30
+
+        then: 'get something looking like a sentence no longer than specified length'
+			1000.times {
+				def sentence = generator.nextSentence(max)
+				assert sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+				assert sentence
+				assert sentence.length() > 0
+				assert sentence.length() <= max
+			}
+    }
+
+    def "nextSentence eventually gives up if max chars is set too low"() {
+		when: 'have a max length in mind'
+			generator.nextSentence(1)
+
+        then: 'exception thrown'
+			thrown(IllegalArgumentException)
+    }
+
     def "nextParagraph returns new paragraph"() {
         when: 'ask for a paragraph'
             def para = generator.nextParagraph()

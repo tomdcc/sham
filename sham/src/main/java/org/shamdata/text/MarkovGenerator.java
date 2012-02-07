@@ -27,6 +27,16 @@ public class MarkovGenerator {
         table = new Parser().parse(stream);
     }
 
+    public String nextSentence(int maxChars) {
+		for(int i = 0; i < 1000; i++) {
+			String sentence = nextSentence();
+			if(sentence.length() <= maxChars) {
+				return sentence;
+			}
+		}
+		throw new IllegalArgumentException("Unable to generate sentence smaller than " + maxChars + "characters. Try setting it higher.");
+	}
+
     public String nextSentence() {
         return nextParagraph(1);
     }

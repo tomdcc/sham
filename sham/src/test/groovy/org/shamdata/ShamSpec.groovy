@@ -81,6 +81,18 @@ class ShamSpec extends Specification {
             sentence =~ /.*[!?.].*/
     }
 
+    def "nextProductName returns new product"() {
+        given: 'new sham instance'
+            def sham = new Sham()
+
+        when: 'ask for a product name'
+            def name = sham.nextProductName()
+
+        then: 'get something looking like a name '
+            name
+            name.length() > 0
+    }
+
     def "nextSentence returns new sentence"() {
         given: 'new sham instance'
             def sham = new Sham()

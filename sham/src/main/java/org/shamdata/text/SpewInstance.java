@@ -24,8 +24,9 @@ class SpewInstance {
         for(int i = 0; i < ar.length; i++) {
             switch(ar[i]) {
                 case '\\':
-                    if(i == ar.length) {
-                        // shouldn't get this unless someone puts a \ at the end of the line
+                    if(i >= ar.length - 1) {
+                        // shouldn't get this unless someone puts a \ at the end of the line, which we'll interpret as an escaped space which has been chomped by our trim()
+						sb.append(' ');
                         break;
                     }
                     i++;

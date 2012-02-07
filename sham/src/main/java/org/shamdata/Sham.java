@@ -34,6 +34,7 @@ public class Sham {
     private Map<String,ImagePicker> imagePickers;
     private MarkovGenerator textGenerator;
     private SpewGenerator headlineGenerator;
+    private SpewGenerator productNameGenerator;
     private Object servletContext; // object so we don't have a runtime dependency on servlet api when it's not used
 
     public Sham() {
@@ -131,12 +132,26 @@ public class Sham {
             headlineGenerator.init();
         }
     }
-	
+
 	public String nextHeadline() {
 		initHeadlineGenerator();
 		return headlineGenerator.nextLine();
 	}
 
+    private void initProductNameGenerator() {
+        if(productNameGenerator == null) {
+			productNameGenerator = new SpewGenerator();
+			productNameGenerator.setRandom(random);
+			productNameGenerator.setBundleName("product-name");
+			productNameGenerator.init();
+        }
+    }
+
+	public String nextProductName() {
+		initProductNameGenerator();
+		return productNameGenerator.nextLine();
+	}
+	
     public URL nextImage(String relativeDir) {
         return getImagePicker(relativeDir).nextImage();
     }

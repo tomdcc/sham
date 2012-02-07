@@ -143,4 +143,18 @@ o hai
                 generator.nextLine()
             }
     }
+
+    def "spew generator can parse bundled product name reference and generate product names without exceptions"() {
+        given: 'generator'
+            def generator = new SpewGenerator()
+			generator.setBundleName('product-name')
+
+        when: 'parse headline'
+            generator.init()
+
+        then: 'can call nextLine many times with no exceptions'
+            10000.times {
+                generator.nextLine()
+            }
+    }
 }

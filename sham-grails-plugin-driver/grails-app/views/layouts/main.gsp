@@ -27,6 +27,7 @@
 <body>
 
 <div id="container">
+	<div class='ad'>Purchase ${grailsApplication.mainContext.sham.nextProductName()} [Sham Ads]</div>
 	<header>
 		<h1>Sham Herald</h1>
 	</header>

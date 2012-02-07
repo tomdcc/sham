@@ -118,4 +118,12 @@ class ShamControllerSpec extends ControllerSpec {
 
 	}
 
+	def "controller can return current sham seed"() {
+		when:
+			controller.getSeed()
+
+		then: 'returns seed'
+			controller.renderArgs.text == sham.seed
+	}
+
 }

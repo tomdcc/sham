@@ -36,7 +36,7 @@ grails.project.dependency.resolution = {
 
 		compile ':fixtures:1.1'
 		compile ':build-test-data:1.1.2'
-		compile ':sham:0.2-SNAPSHOT'
+		compile ':sham:0.2'
 
 		compile ':cache-headers:1.1.5'
 

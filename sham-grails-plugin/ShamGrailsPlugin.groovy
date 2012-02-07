@@ -6,7 +6,7 @@ import org.apache.log4j.Level
 
 class ShamGrailsPlugin {
     // the plugin version
-    def version = "0.2-SNAPSHOT"
+    def version = "0.2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on

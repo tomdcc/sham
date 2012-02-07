@@ -27,7 +27,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
-		compile 'org.shamdata:sham:0.2-SNAPSHOT'
+		compile 'org.shamdata:sham:0.2'
 
 		test "org.objenesis:objenesis:1.2"
     }

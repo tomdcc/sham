@@ -9,11 +9,19 @@ import org.apache.log4j.Logger
 class ShamControllerSpec extends ControllerSpec {
 
     def fixtureLoader
+	def shamLog
+	def sham
     static final String[] fixtureNames = ["fixture1", "fixture2", "fixture3" ] as String[]
 
+	
+	
     def setup() {
         fixtureLoader = Mock(FixtureLoader)
         controller.fixtureLoader = fixtureLoader
+		shamLog = Mock(Logger)
+		controller.shamLog = shamLog
+		sham = new Sham()
+		controller.sham = sham
     }
 
     def "controller can apply fixtures and redirect to home page"() {
@@ -69,12 +77,8 @@ class ShamControllerSpec extends ControllerSpec {
 	@Unroll
 	def "controller logs seed to log"() {
 		given: 'sham instance with known seed'
-			def sham = new Sham()
 			sham.seed = seed
-			controller.sham = sham
-			def shamLog = Mock(Logger)
-			controller.shamLog = shamLog
-		
+
 		when: 'call logSeed'
 			controller.params.prefix = prefix
 			controller.logSeed()
@@ -93,13 +97,6 @@ class ShamControllerSpec extends ControllerSpec {
 
 	@Unroll
 	def "controller can set sham seed"() {
-		given: 'sham instance'
-			def sham = new Sham()
-			controller.sham = sham
-
-			def shamLog = Mock(Logger)
-			controller.shamLog = shamLog
-
 		when:
 			controller.params.seed = seed as String
 			controller.params.prefix = prefix
@@ -120,7 +117,5 @@ class ShamControllerSpec extends ControllerSpec {
 			1234 | 'o hai' | "o hai, set sham seed to: 1234"
 
 	}
-
-
 
 }

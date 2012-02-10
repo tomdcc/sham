@@ -5,31 +5,24 @@ import org.apache.log4j.SimpleLayout
 import org.apache.log4j.Level
 
 class ShamGrailsPlugin {
-    // the plugin version
     def version = "0.2"
-    // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
-    // the other plugins this plugin depends on
     def dependsOn = [:]
-    // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp"
     ]
 
-    // TODO Fill in these fields
-    def author = "Tom Dunstan"
-    def authorEmail = "tom@energizedwork.com"
-    def title = "Plugin summary/headline"
-    def description = '''\\
-Brief description of the plugin.
-'''
+	def license = "MIT"
+	def issueManagement = [system: 'github', url: 'https://github.com/tomdcc/sham/issues' ]
+	def scm = [ url: "http://svn.grails-plugins.codehaus.org/browse/grails-plugins/" ]
 
-    // URL to the plugin's documentation
+    def author = "Tom Dunstan"
+    def authorEmail = "grails@tomd.cc"
+    def title = "Sham Plugin"
+    def description = '''A plugin using the sham data generation library to generate test / demo data when testing your app.'''
     def documentation = "http://grails.org/plugin/sham"
 
-    def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before 
-    }
+    def doWithWebDescriptor = { xml -> }
 
     def doWithSpring = {
 		sham(Sham) { bean ->
@@ -42,9 +35,7 @@ Brief description of the plugin.
 		}
     }
 
-    def doWithDynamicMethods = { ctx ->
-        // TODO Implement registering dynamic methods to classes (optional)
-    }
+    def doWithDynamicMethods = { ctx -> }
 
     def doWithApplicationContext = { applicationContext ->
 		applicationContext.sham.servletContext = applicationContext.servletContext
@@ -55,14 +46,6 @@ Brief description of the plugin.
 		logger.level = Level.DEBUG
     }
 
-    def onChange = { event ->
-        // TODO Implement code that is executed when any artefact that this plugin is
-        // watching is modified and reloaded. The event contains: event.source,
-        // event.application, event.manager, event.ctx, and event.plugin.
-    }
-
-    def onConfigChange = { event ->
-        // TODO Implement code that is executed when the project configuration changes.
-        // The event is the same as for 'onChange'.
-    }
+    def onChange = { event -> }
+    def onConfigChange = { event -> }
 }

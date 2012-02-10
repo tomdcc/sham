@@ -35,9 +35,12 @@ grails.project.dependency.resolution = {
     plugins {
 		build(':release:1.0.1') {
 			export = false
-			excludes "svn"
 		}
-        test ":spock:0.5-groovy-1.7"
-        test ':fixtures:1.1'
+        test(":spock:0.5-groovy-1.7") {
+			export = false
+		}
+        test(':fixtures:1.1') {
+			export = false
+		}
     }
 }

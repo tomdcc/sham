@@ -5,7 +5,7 @@ import org.apache.log4j.SimpleLayout
 import org.apache.log4j.Level
 
 class ShamGrailsPlugin {
-    def version = "0.2"
+    def version = "0.3-SNAPSHOT"
     def grailsVersion = "1.3.7 > *"
     def dependsOn = [:]
     def pluginExcludes = [

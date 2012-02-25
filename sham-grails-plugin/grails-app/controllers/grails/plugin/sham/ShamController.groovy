@@ -12,7 +12,7 @@ class ShamController {
 		if(!params.fixtures) {
 			throw new IllegalArgumentException("Please provide fixture list")
 		}
-		shamLog.info("${params.prefix ? params.prefix + ', ' : ''}loading fixtures, sham seed: $sham.seed")
+		shamLog.info("${params.prefix ? params.prefix + ', ' : ''}loading fixtures $params.fixtures, sham seed: $sham.seed")
 		fixtureLoader.load(params.fixtures)
 		def redirectArgs
 		def nocache = '_nocache=' + System.currentTimeMillis()

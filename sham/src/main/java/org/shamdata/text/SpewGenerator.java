@@ -70,13 +70,12 @@ public class SpewGenerator {
     }
 
     void parse() {
-//        parse(getClass().getResourceAsStream(bundleName + "_en.spew"));
         parse(ResourceUtil.readResource(this.getClass(), bundleName, "spew"));
     }
 
     void parse(InputStream stream) {
         // remove weights, counts
-        Pattern weightPattern = Pattern.compile("^\\((\\d)\\)(.*)$");
+        Pattern weightPattern = Pattern.compile("^\\((\\d+)\\)(.*)$");
         Pattern parameterPattern = Pattern.compile("^(.*)\\{([a-zA-Z]+)\\}$");
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         try {

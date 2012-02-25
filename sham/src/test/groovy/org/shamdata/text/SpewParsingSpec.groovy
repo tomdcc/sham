@@ -39,16 +39,19 @@ o hai\\*hmm
         then: 'get valid parsing'
             generator.spewClasses.size() == 1
             generator.mainClass == generator.spewClasses.MAIN
-            generator.mainClass.instances.size() == 2
+            generator.mainClass.instances.size() == 3
             generator.mainClass.instances[0].text == 'o hai'
             generator.mainClass.instances[0].weight == 1
             generator.mainClass.instances[1].text == 'kthxbye'
             generator.mainClass.instances[1].weight == 4
+            generator.mainClass.instances[2].text == '69'
+            generator.mainClass.instances[2].weight == 20
 
         where:
             file = """%MAIN
 o hai
 (4)kthxbye
+(20)69
 """
     }
 

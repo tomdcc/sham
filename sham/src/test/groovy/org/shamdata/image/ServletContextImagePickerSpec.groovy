@@ -27,7 +27,7 @@ class ServletContextImagePickerSpec extends Specification {
     def "image picker picks random image from directory"() {
         when: 'ask for an image 10 times'
             def images = new HashSet();
-            10.times {
+            20.times {
                 images << picker.nextImage()
             }
 
@@ -35,7 +35,7 @@ class ServletContextImagePickerSpec extends Specification {
             images.size() >= 3
 
         and: 'each one is valid'
-            def validFiles = baseDir.listFiles().findAll{it.isFile()}.collect{new URL("file:$it")}
+            def validFiles = baseDir.listFiles({ dir, name -> !name.startsWith('.') } as FilenameFilter).findAll{it.isFile()}.collect{new URL("file:$it")}
             images.each { URL imageUrl ->
                 imageUrl in validFiles
             }
@@ -48,7 +48,7 @@ class ServletContextImagePickerSpec extends Specification {
                 imageSets << picker.nextImageSet()
             }
 
-        then: "at least 3 different images returned"
+        then: "2 image sets returned"
             imageSets.size() == 2
 
         and: 'each one is valid'

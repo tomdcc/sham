@@ -50,7 +50,7 @@ class ShamSpec extends Specification {
             def image = sham.nextImage("images")
 
         then: 'get valid image url'
-            def validImages = new File("${TestUtil.projectBaseDir}/src/test/images").listFiles().findAll{it.isFile()}*.toURL()
+            def validImages = new File("${TestUtil.projectBaseDir}/src/test/images").listFiles({ dir, name -> !name.startsWith('.') } as FilenameFilter).findAll{it.isFile()}*.toURL()
             image in validImages
 
     }
@@ -64,7 +64,7 @@ class ShamSpec extends Specification {
             def imageSet = sham.nextImageSet("images")
 
         then: 'get valid image url'
-            def validOtherImage0s = new File("${TestUtil.projectBaseDir}/src/test/images").listFiles().findAll{it.isDirectory()}.collect{new File(it, "otherImage0.jpg")}*.toURL()
+            def validOtherImage0s = new File("${TestUtil.projectBaseDir}/src/test/images").listFiles().findAll{it.isDirectory() && !it.name.startsWith('.')}.collect{new File(it, "otherImage0.jpg")}*.toURL()
             imageSet.otherImage0 in validOtherImage0s
     }
 

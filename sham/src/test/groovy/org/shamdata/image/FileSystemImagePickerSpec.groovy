@@ -32,7 +32,7 @@ class FileSystemImagePickerSpec extends Specification {
             images.size() >= 3
 
         and: 'each one is valid'
-            def validImages = baseDir.listFiles().findAll{it.isFile()}*.toURL()
+            def validImages = baseDir.listFiles({ dir, name -> !name.startsWith('.') } as FilenameFilter).findAll{it.isFile()}*.toURL()
             images.each {
                 assert it in validImages
             }

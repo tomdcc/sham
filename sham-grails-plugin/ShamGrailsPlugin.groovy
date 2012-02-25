@@ -3,6 +3,7 @@ import org.apache.log4j.Logger
 import org.apache.log4j.FileAppender
 import org.apache.log4j.SimpleLayout
 import org.apache.log4j.Level
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class ShamGrailsPlugin {
     def version = "0.3-SNAPSHOT"
@@ -24,10 +25,22 @@ class ShamGrailsPlugin {
 
     def doWithWebDescriptor = { xml -> }
 
+    static config
     def doWithSpring = {
+        loadConfig()
+
+        String imageDirVal
+        if(config?.sham?.image?.dir instanceof File) {
+            imageDirVal = config.sham.image.dir.absolutePath
+        } else if(config?.sham?.image?.dir) {
+            imageDirVal = config.sham.image.dir
+        } else {
+            imageDirVal = '/images'
+        }
+
 		sham(Sham) { bean ->
 			bean.factoryMethod = "getInstance"
-			imageBaseDir = '/images'
+			imageBaseDir = imageDirVal
 		}
 		shamLog(Logger) { bean ->
 			bean.factoryMethod = "getInstance"
@@ -38,14 +51,33 @@ class ShamGrailsPlugin {
     def doWithDynamicMethods = { ctx -> }
 
     def doWithApplicationContext = { applicationContext ->
-		applicationContext.sham.servletContext = applicationContext.servletContext
+        println "doWithApplicationContext"
+        if(!(config?.sham?.image?.dir instanceof File)) {
+            // if configured with File object, images should use FileSystemImagePicker, otherwise relative to web app
+            // so we need the servlet context set
+            applicationContext.sham.servletContext = applicationContext.servletContext
+        }
 
-		def logger = applicationContext.shamLog
-		logger.additivity = false
-		logger.addAppender(new FileAppender(new SimpleLayout(), "sham.log"))
-		logger.level = Level.DEBUG
+        // put sham logging into separate file unless ordered not to
+        boolean separateShamLogfile = config?.sham?.separate?.log?.file != null ? config.sham.separate.log.file : true
+        if(separateShamLogfile) {
+            def logger = applicationContext.shamLog
+            logger.additivity = false
+            logger.addAppender(new FileAppender(new SimpleLayout(), config?.sham?.log?.file ?: "sham.log"))
+            logger.level = Level.DEBUG
+        }
     }
 
     def onChange = { event -> }
     def onConfigChange = { event -> }
+
+
+    void loadConfig() {
+        GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
+        def confClass
+        try {
+            confClass = classLoader.loadClass('ShamConfig')
+        } catch (Exception e) {}
+        config = confClass ? new ConfigSlurper().parse(confClass).merge(ConfigurationHolder.config) : ConfigurationHolder.config
+    }
 }

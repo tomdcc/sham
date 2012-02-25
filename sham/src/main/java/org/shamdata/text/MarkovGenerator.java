@@ -1,5 +1,6 @@
 package org.shamdata.text;
 
+import org.shamdata.ShamGenerator;
 import org.shamdata.util.ResourceUtil;
 
 import java.io.BufferedReader;
@@ -8,7 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class MarkovGenerator {
+public class MarkovGenerator implements ShamGenerator {
     private Random random;
     private String bundleName = "default";
 

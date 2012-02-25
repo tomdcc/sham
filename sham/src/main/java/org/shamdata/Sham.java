@@ -11,10 +11,7 @@ import org.shamdata.image.ServletContextImagePicker;
 import javax.servlet.ServletContext;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -29,12 +26,10 @@ public class Sham {
     // config
     private String imageBaseDir;
 
-    // actal generators
-    private PersonGenerator personGenerator;
-    private Map<String,ImagePicker> imagePickers;
-    private MarkovGenerator textGenerator;
-    private SpewGenerator headlineGenerator;
-    private SpewGenerator productNameGenerator;
+    // actual generators
+    Map<String,ShamGenerator> generators;
+
+
     private Object servletContext; // object so we don't have a runtime dependency on servlet api when it's not used
 
     public Sham() {
@@ -43,6 +38,7 @@ public class Sham {
 		if(seedSysProp != null) {
 			setSeed(Long.parseLong(seedSysProp));
 		}
+        generators = new LinkedHashMap<String,ShamGenerator>();
     }
 
     public static void setInstance(Sham instance) {
@@ -56,24 +52,30 @@ public class Sham {
         return Sham.instance;
     }
 
-    private void initPersonGenerator() {
+    public void registerGenerator(String name, ShamGenerator generator) {
+        generator.setRandom(random);
+        generators.put(name, generator);
+    }
+
+    private PersonGenerator getPersonGenerator() {
+        PersonGenerator personGenerator = (PersonGenerator) generators.get("person");
         if(personGenerator == null) {
             personGenerator = new PersonGenerator();
-            personGenerator.setRandom(random);
+            registerGenerator("person", personGenerator);
         }
+        return personGenerator;
     }
+
     public Person nextPerson() {
-        initPersonGenerator();
-        return personGenerator.nextPerson();
+        return getPersonGenerator().nextPerson();
     }
 
 
     private ImagePicker getImagePicker(String relativeDir) {
-        if(imagePickers == null) {
-            imagePickers = new HashMap<String, ImagePicker>();
-        }
-        ImagePicker picker = imagePickers.get(relativeDir);
+        String genKey = "image/" + relativeDir;
+        ImagePicker picker = (ImagePicker) generators.get(genKey);
         if(picker == null) {
+            // TODO - does this actually protect us from the runtime dep on ServletContext? I doubt it...
 			if(servletContext != null) {
 				ServletContextImagePicker scip = new ServletContextImagePicker();
 				scip.setServletContext((ServletContext) servletContext);
@@ -81,80 +83,65 @@ public class Sham {
 			} else {
 				picker = new FileSystemImagePicker();
 			}
-
+            registerGenerator(genKey, picker);
             picker.setBaseDir(imageBaseDir + "/" + relativeDir);
-            picker.setRandom(random);
-
             picker.init();
         }
         return picker;
     }
 
     public String nextSentence() {
-        initTextGenerator();
-        return textGenerator.nextSentence();
+        return getTextGenerator().nextSentence();
     }
 
     public String nextSentence(int maxChars) {
-        initTextGenerator();
-        return textGenerator.nextSentence(maxChars);
+        return getTextGenerator().nextSentence(maxChars);
     }
 
     public String nextParagraph() {
-        initTextGenerator();
-        return textGenerator.nextParagraph();
+        return getTextGenerator().nextParagraph();
     }
 
     public String nextParagraph(int numSentences) {
-        initTextGenerator();
-        return textGenerator.nextParagraph(numSentences);
+        return getTextGenerator().nextParagraph(numSentences);
     }
 
     public List<String> nextParagraphs() {
-        initTextGenerator();
-        return textGenerator.nextParagraphs();
+        return getTextGenerator().nextParagraphs();
     }
 
     public List<String> nextParagraphs(int num) {
-        initTextGenerator();
-        return textGenerator.nextParagraphs(num);
+        return getTextGenerator().nextParagraphs(num);
     }
 
 
-    private void initTextGenerator() {
+    private MarkovGenerator getTextGenerator() {
+        MarkovGenerator textGenerator = (MarkovGenerator) generators.get("text");
         if(textGenerator == null) {
             textGenerator = new MarkovGenerator();
-            textGenerator.setRandom(random);
+            registerGenerator("text", textGenerator);
             textGenerator.init();
         }
+        return textGenerator;
     }
 
-    private void initHeadlineGenerator() {
-        if(headlineGenerator == null) {
-			headlineGenerator = new SpewGenerator();
-            headlineGenerator.setRandom(random);
-			headlineGenerator.setBundleName("headline");
-            headlineGenerator.init();
+    private SpewGenerator getSpewGenerator(String name, String bundleName) {
+        SpewGenerator generator = (SpewGenerator) generators.get(name);
+        if(generator == null) {
+			generator = new SpewGenerator();
+			generator.setBundleName(bundleName);
+            registerGenerator(name, generator);
+            generator.init();
         }
+        return generator;
     }
 
 	public String nextHeadline() {
-		initHeadlineGenerator();
-		return headlineGenerator.nextLine();
+		return getSpewGenerator("headline", "headline").nextLine();
 	}
 
-    private void initProductNameGenerator() {
-        if(productNameGenerator == null) {
-			productNameGenerator = new SpewGenerator();
-			productNameGenerator.setRandom(random);
-			productNameGenerator.setBundleName("product-name");
-			productNameGenerator.init();
-        }
-    }
-
 	public String nextProductName() {
-		initProductNameGenerator();
-		return productNameGenerator.nextLine();
+		return getSpewGenerator("productName", "product-name").nextLine();
 	}
 	
     public URL nextImage(String relativeDir) {
@@ -195,4 +182,17 @@ public class Sham {
 			return null;
 		}
 	}
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public ShamGenerator getGenerator(String name) {
+        return generators.get(name);
+    }
+
+    public Map<String,ShamGenerator> getGenerators() {
+        return Collections.unmodifiableMap(generators);
+    }
+
 }

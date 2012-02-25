@@ -5,6 +5,10 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import org.shamdata.test.TestUtil
+import org.shamdata.person.PersonGenerator
+import org.shamdata.text.MarkovGenerator
+import org.shamdata.text.SpewGenerator
+import org.shamdata.image.ImagePicker
 
 class ShamSpec extends Specification {
 
@@ -202,5 +206,49 @@ class ShamSpec extends Specification {
 		then: 'underlying seed is as specified'
 			sham.seed == seed
 	}
-	
+
+    def "sham has default set of generators"() {
+        given: 'sham instance'
+            def sham = new Sham(imageBaseDir: '.');
+
+        when: 'ask for various types of content'
+            sham.nextPerson()
+            sham.nextSentence()
+            sham.nextHeadline()
+            sham.nextProductName()
+            sham.nextImage(".")
+
+        and: 'ask for generators'
+            def generators = sham.generators
+
+        then: 'get expected set of generators'
+            generators.size() == 5
+
+            generators.person instanceof PersonGenerator
+            generators.text instanceof MarkovGenerator
+            generators.headline instanceof SpewGenerator
+            generators.productName instanceof SpewGenerator
+            generators["image/."] instanceof ImagePicker
+    }
+
+    def "generator registered with sham has sham's random number generator set and appear in list"() {
+        given: 'sham instance'
+            def sham = new Sham();
+
+        and: 'new generator'
+            def gen = Mock(ShamGenerator)
+
+        when: 'register generator'
+            sham.registerGenerator("newGenerator", gen)
+
+        then: 'random number set on generator'
+            1 * gen.setRandom(sham.random)
+
+        and: 'generator is returned when asked for'
+            gen == sham.getGenerator("newGenerator")
+
+        and: 'generator is included in list of generators'
+            sham.generators.newGenerator == gen
+
+    }
 }

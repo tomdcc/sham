@@ -1,5 +1,6 @@
 package org.shamdata.text;
 
+import org.shamdata.ShamGenerator;
 import org.shamdata.util.ResourceUtil;
 
 import java.io.BufferedReader;
@@ -10,7 +11,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SpewGenerator {
+public class SpewGenerator implements ShamGenerator {
 
     private final static String MAIN_CLASS_NAME = "MAIN";
 

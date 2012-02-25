@@ -1,10 +1,11 @@
 package org.shamdata.person;
 
+import org.shamdata.ShamGenerator;
 import org.shamdata.text.SpewGenerator;
 
 import java.util.*;
 
-public class PersonGenerator {
+public class PersonGenerator implements ShamGenerator {
 	private Locale locale = Locale.getDefault();
 	private Gender gender = null;
 

@@ -1,15 +1,15 @@
 package org.shamdata.image;
 
+import org.shamdata.ShamGenerator;
+
 import java.net.URL;
 import java.util.Map;
-import java.util.Random;
 
-public interface ImagePicker {
+public interface ImagePicker extends ShamGenerator {
 
     URL nextImage();
     Map<String,URL> nextImageSet();
 
-    void setRandom(Random random);
     void setBaseDir(String baseDir);
     void init();
 }

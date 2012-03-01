@@ -1,7 +1,6 @@
 package grails.plugin.sham
 
 import grails.plugin.spock.ControllerSpec
-import grails.plugin.fixtures.FixtureLoader
 import spock.lang.Unroll
 import org.shamdata.Sham
 import org.apache.log4j.Logger
@@ -126,4 +125,11 @@ class ShamControllerSpec extends ControllerSpec {
 			controller.renderArgs.text == sham.seed
 	}
 
+}
+
+
+// we don't want to depend on real fixture loader, since grails 1.3.7
+// doesn't do the exclusions properly when running test-app -war
+interface FixtureLoader {
+    def load(String[] fixtures);
 }

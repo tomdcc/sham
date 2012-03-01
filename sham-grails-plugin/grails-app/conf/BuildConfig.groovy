@@ -39,8 +39,5 @@ grails.project.dependency.resolution = {
         test(":spock:0.5-groovy-1.7") {
 			export = false
 		}
-        test(':fixtures:1.1') {
-			export = false
-		}
     }
 }

@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a randomly generated person.
+ */
 public class Person {
 	private Gender gender;
 	private List<String> givenNames;
@@ -28,10 +31,21 @@ public class Person {
 		return sb.toString().trim();
 	}
 
+    /**
+     * Will return a standard Firstname Lastname representation of the person, with middle names
+     * omitted.
+     *
+     * @return the common form name of the person
+     */
 	public String getName() {
 		return getName(hasGivenNames() ? Collections.singletonList(givenNames.get(0)) : Collections.<String>emptyList());
 	}
 
+    /**
+     * Returns the person's full name, including middle name
+     *
+     * @return full name
+     */
 	public String getFullName() {
 		return getName(hasGivenNames() ? givenNames : Collections.<String>emptyList());
 	}

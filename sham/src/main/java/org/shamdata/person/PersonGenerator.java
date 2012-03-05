@@ -5,6 +5,10 @@ import org.shamdata.text.SpewGenerator;
 
 import java.util.*;
 
+/**
+ * Generator for people. Will generate {@link Person} objects with various attributes - see that class.
+ */
+
 public class PersonGenerator implements ShamGenerator {
 	private Locale locale = Locale.getDefault();
 	private Gender gender = null;
@@ -19,6 +23,9 @@ public class PersonGenerator implements ShamGenerator {
     private SpewGenerator usernameGenerator;
     private SpewGenerator emailGenerator;
 
+    /**
+     * Should be called before any calls to {@link #nextPerson nextPerson()} or {@link #nextPeople nextPeople()}.
+     */
 	public void init() {
         if(random == null) {
             throw new IllegalArgumentException("init should be called after random number generator set");
@@ -37,6 +44,9 @@ public class PersonGenerator implements ShamGenerator {
         return gen;
     }
 
+    /**
+     * Default constructor. Call {@link #init()} before using the class.
+     */
 	public PersonGenerator() { }
 
 	private void readNames() {
@@ -58,11 +68,20 @@ public class PersonGenerator implements ShamGenerator {
 		return names;
 	}
 
+    /**
+     * Set the locale to read names from.
+     *
+     * @param locale the desired locale.
+     */
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
 
-
+    /**
+     * Returns a randomly generated person.
+     *
+     * @return next randomly generated person.
+     */
 	public Person nextPerson() {
 		if(!initialized) { init(); }
 
@@ -118,6 +137,12 @@ public class PersonGenerator implements ShamGenerator {
 		return names.get(random.nextInt(names.size()));
 	}
 
+    /**
+     * Will generate the given number of random people
+     *
+     * @param num the number of people to generate
+     * @return a list of the generated people
+     */
 	public List<Person> nextPeople(int num) {
 		List<Person> names = new ArrayList<Person>(num);
 		for(int i = 0; i < num; i++) {
@@ -126,14 +151,38 @@ public class PersonGenerator implements ShamGenerator {
 		return names;
 	}
 
+    /**
+     * Sets this generator's random number generator.
+     *
+     * @param random the RNG to use
+     */
     public void setRandom(Random random) {
         this.random = random;
     }
 
+    /**
+     * If set, this generator will produce random people of the given
+     * gender. If set to null (the default), the generator will generate
+     * people of random gender, with a 50% chance either way.
+     *
+     * @param gender the gender to use, or null for random gender
+     */
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
+    /**
+     * If set, will append the suffix to generated emails. The intention is to
+     * allow realish email addresses to be generated without actually being
+     * real, so that an application won't start sending email to the email
+     * addresses generated here. By default, this is set to <code>".bv"</code>,
+     * a valid top level domain with no actual subdomains. Set to null to
+     * not append a suffix - <strong>warning</strong> the deault email file
+     * will generate valid email addresses in e.g. hotmail.com if no suffix
+     * is set.
+     *
+     * @param fakeDomainSuffix the suffix to use, or null for no suffix
+     */
     public void setFakeDomainSuffix(String fakeDomainSuffix) {
         this.fakeDomainSuffix = fakeDomainSuffix;
     }

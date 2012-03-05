@@ -9,6 +9,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ * A Markov text generator. Reads a resource file with text and can then
+ * generate random sentences and paragraphs.
+ */
 public class MarkovGenerator implements ShamGenerator {
     private Random random;
     private String bundleName = "default";
@@ -17,6 +21,10 @@ public class MarkovGenerator implements ShamGenerator {
 
     private Map<List<String>,List<String>> table;
 
+    /**
+     * Initialiser. Should be called before calls to any of the
+     * <code>nextXXX()</code> methods.
+     */
     public void init() {
         parse(ResourceUtil.readResource(getClass(), bundleName, "txt"));
         if(random == null) {
@@ -28,6 +36,17 @@ public class MarkovGenerator implements ShamGenerator {
         table = new Parser().parse(stream);
     }
 
+    /**
+     * Returns a sentence guaranteed to not be any loner than the specified
+     * number of characters. Will generate a complete sentence - if the
+     * generator is not able to generate a complete sentence under the limit
+     * after a number of attempts it will throw an {@link IllegalArgumentException}
+     * and give up.
+     *
+     * @param maxChars the maximum number of characters to return
+     * @return a sentence no longer than the specified number of characters
+     * @throws IllegalArgumentException if unable to generate a sentence that short after a number of attempts
+     */
     public String nextSentence(int maxChars) {
 		for(int i = 0; i < 1000; i++) {
 			String sentence = nextSentence();
@@ -38,18 +57,41 @@ public class MarkovGenerator implements ShamGenerator {
 		throw new IllegalArgumentException("Unable to generate sentence smaller than " + maxChars + "characters. Try setting it higher.");
 	}
 
+    /**
+     * Returns a randomly generated sentence.
+     *
+     * @return a random sentence
+     */
     public String nextSentence() {
         return nextParagraph(1);
     }
 
+    /**
+     * Returns a randomly generated paragraph of text. There will be a random
+     * number of sentences in the paragraph - somewhere between 2 and 8.
+     *
+     * @return a random paragraph of text
+     */
     public String nextParagraph() {
         return nextParagraph(Math.min(Math.max(5 + (int) (random.nextGaussian() * 2d), 2), 8));
     }
 
+    /**
+     * Returns a random list of paragraphs. The number of paragraphs will be between
+     * 1 and 8.
+     *
+     * @return a random list of paragraphs
+     */
     public List<String> nextParagraphs() {
         return nextParagraphs(Math.min(Math.max(4 + (int) (random.nextGaussian() * 3d), 1), 8));
     }
 
+    /**
+     * Returns the given number of randomly generated paragraphs.
+     *
+     * @param num the number of paragraphs to generate
+     * @return a list of randomly generated paragraphs, of the requested size
+     */
     public List<String> nextParagraphs(int num) {
         List<String> paragraphs = new ArrayList<String>(num);
         for(int i = 0; i < num; i++) {
@@ -58,6 +100,12 @@ public class MarkovGenerator implements ShamGenerator {
         return paragraphs;
     }
 
+    /**
+     * Returns a paragraph of text with the given number of sentences.
+     *
+     * @param totalSentences the number of sentences to generate
+     * @return a paragraph with the requested number of sentences
+     */
     public String nextParagraph(int totalSentences) {
         StringBuilder out = new StringBuilder();
 
@@ -138,7 +186,6 @@ public class MarkovGenerator implements ShamGenerator {
                             w2 = word;
                         }
                     }
-//                        addWord(stopword);
                 }
             }
 
@@ -158,7 +205,6 @@ public class MarkovGenerator implements ShamGenerator {
             List<List<String>> paragraphs = new ArrayList<List<String>>();
             List<String> currentParagraph = null;
             boolean inParagraph = false;
-    //        boolean lastLineBlank = true;
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new InputStreamReader(stream));
@@ -188,4 +234,14 @@ public class MarkovGenerator implements ShamGenerator {
         }
     }
 
+    /**
+     * Set the bundle name to use. By default, Sham will look for a text bundle
+     * named <code>"default"</code>. Set this to make a generator use a different
+     * resource for its text. Should be called before {@link #init()}.
+     *
+     * @param bundleName the bundle name to use
+     */
+    public void setBundleName(String bundleName) {
+        this.bundleName = bundleName;
+    }
 }

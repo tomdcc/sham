@@ -5,6 +5,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * An image picker that scans a file system directory.
+ */
 public class FileSystemImagePicker extends BaseImagePicker {
 
     public void init() {
@@ -22,7 +25,7 @@ public class FileSystemImagePicker extends BaseImagePicker {
     }
 
     @Override
-    Set<String> listFiles(String dirName) {
+    protected Set<String> listFiles(String dirName) {
         Set<String> paths = new LinkedHashSet<String>();
         File[] files = new File(dirName).listFiles();
         for(File file : files) {
@@ -32,6 +35,12 @@ public class FileSystemImagePicker extends BaseImagePicker {
         return paths;
     }
 
+    /**
+     * Returns a file URL pointing to the given file
+     *
+     * @param filename path to the file
+     * @return a file URL poiting to the file
+     */
     @Override
     protected URL toURL(String filename) {
         try {

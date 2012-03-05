@@ -11,19 +11,37 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Generator of single lines of text, driven by a spew file. See included *.spew files
+ * for examples.
+ */
 public class SpewGenerator implements ShamGenerator {
 
     private final static String MAIN_CLASS_NAME = "MAIN";
 
     Random random;
-    String bundleName = "headline";
+    private String bundleName = "headline";
     Map<String,SpewClass> spewClasses;
-    SpewClass mainClass;
+    private SpewClass mainClass;
 
+    /**
+     * Returns a random line of text, driven by the underlying spew file.
+     *
+     * @return a random line of text
+     */
     public String nextLine() {
         return nextLine(null);
     }
 
+    /**
+     * Returns a random line of text, driven by the underlying spew file and the given
+     * classes. For example, to drive a spew file but add some parameters to it,
+     * call this method with the class names as the map keys, and the Strings that you'd
+     * like substituted as the values.
+     *
+     * @param extraClasses the extra classes to use
+     * @return a random line of text
+     */
     public String nextLine(Map<String,Object> extraClasses) {
         return mainClass.render(null, preprocessExtraClasses(extraClasses));
     }
@@ -55,6 +73,9 @@ public class SpewGenerator implements ShamGenerator {
         return extra;
     }
 
+    /**
+     * Initialiser. Should be called before {@link #nextLine()}.
+     */
     public void init() {
         if(random == null) {
             random = new Random();
@@ -66,15 +87,20 @@ public class SpewGenerator implements ShamGenerator {
         this.random = random;
     }
 
+    /**
+     * Sets the bundle name of the spew file to use.
+     *
+     * @param name the bundle name
+     */
     public void setBundleName(String name) {
         bundleName = name;
     }
 
-    void parse() {
+    private void parse() {
         parse(ResourceUtil.readResource(this.getClass(), bundleName, "spew"));
     }
 
-    void parse(InputStream stream) {
+    private void parse(InputStream stream) {
         // remove weights, counts
         Pattern weightPattern = Pattern.compile("^\\((\\d+)\\)(.*)$");
         Pattern parameterPattern = Pattern.compile("^(.*)\\{([a-zA-Z]+)\\}$");

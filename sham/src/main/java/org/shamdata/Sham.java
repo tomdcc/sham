@@ -128,7 +128,6 @@ public class Sham {
         String genKey = "image/" + relativeDir;
         ImagePicker picker = (ImagePicker) generators.get(genKey);
         if(picker == null) {
-            // TODO - does this actually protect us from the runtime dep on ServletContext? I doubt it...
 			if(servletContext != null) {
 				ServletContextImagePicker scip = new ServletContextImagePicker();
 				scip.setServletContext((ServletContext) servletContext);

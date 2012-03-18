@@ -51,7 +51,6 @@ class ShamGrailsPlugin {
     def doWithDynamicMethods = { ctx -> }
 
     def doWithApplicationContext = { applicationContext ->
-        println "doWithApplicationContext"
         if(!(config?.sham?.image?.dir instanceof File)) {
             // if configured with File object, images should use FileSystemImagePicker, otherwise relative to web app
             // so we need the servlet context set

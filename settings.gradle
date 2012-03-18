@@ -1,1 +1,1 @@
-include 'sham', 'sham-grails-plugin', 'sham-grails-plugin-driver'
+include 'sham', 'doc/guide'

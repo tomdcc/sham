@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sham User Guide - <%= chapter.title %></title>
+    <meta name="description" content="Sham User Guide - <%= chapter.title %>">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class='chapter'>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="http://www.shamdata.org">Sham</a>
+            <ul class="nav pull-right">
+                <li><a href="api/index.html">API Docs</a></li>
+                <li><a href="https://github.com/tomdcc/sham">Github</a></li>
+            </ul>
+            <h1><a href="index.html">Sham User Guide</a></h1>
+        </div>
+    </div>
+</div>
+<div class="container header">
+    <ul class="pager">
+        <% if (prev) { %><li class='previous'><a href="<%= prev.filename %>">&larr; <%= prev.title %></a></li><% } %>
+        <li><a href="index.html">Table of Contents</a></li>
+        <% if (next) { %><li class="next"><a href="<%= next.filename %>"><%= next.title %> &rarr;</a></li><% } %>
+    </ul>
+</div>
+<div class="container main">
+    <div class='toc'>
+        <h4>Chapter Table of Contents</h4>
+        <%= chapter.toc %>
+    </div>
+    <%= chapter.content %>
+</div>
+<div id="footer" class="container">
+    <ul class="pager">
+        <% if (prev) { %><li class='previous'><a href="<%= prev.filename %>">&larr; <%= prev.title %></a></li><% } %>
+        <li><a href="index.html">Table of Contents</a></li>
+        <% if (next) { %><li class="next"><a href="<%= next.filename %>"><%= next.title %> &rarr;</a></li><% } %>
+    </ul>
+</div>
+
+</body>
+</html>

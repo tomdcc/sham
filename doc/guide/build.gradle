@@ -1,0 +1,59 @@
+buildscript {
+	repositories {
+		mavenRepo (name: "Alkemist's GitHub", url: "http://cloud.github.com/downloads/alkemist") {
+			pattern = "[organisation]/[module]-[revision].[ext]"
+		}
+		mavenRepo name: "scala-tools", url: "http://scala-tools.org/repo-releases"
+		mavenCentral()
+	}
+	dependencies {
+		classpath "markdown2book:markdown2book:1.0-SNAPSHOT"
+	}
+}
+
+archivesBaseName = "sham-user-guide"
+
+modifyPom = { pom ->
+	pom.project {
+		name "Sham User Guide"
+		description "Sham user guide and API reference."
+	}
+}
+
+task tokeniseManual(type: Copy) {
+	from "src"
+	into "$buildDir/manual-tokenised"
+
+    def substitutionProperties = [:]
+	inputs.properties(substitutionProperties)
+
+	def tokenisableExtensions = ["md", "html"]
+	inputs.property("tokenisableExtensions", tokenisableExtensions)
+
+	eachFile { file ->
+		if (tokenisableExtensions.any { file.name.endsWith(it) }) {
+			file.filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: substitutionProperties)
+		}
+	}
+}
+
+
+task compileManual {
+	dependsOn tokeniseManual
+
+	def source = tokeniseManual.destinationDir
+	inputs.dir(source)
+
+	def destination = file("$buildDir/manual-compiled")
+	outputs.dir(destination)
+
+	def encoding = "UTF-8"
+	inputs.property("encoding", encoding)
+
+	doLast {
+		new markdown2book.Generator(source, destination, encoding).generate()
+	}
+}
+task ('clean', type:Delete) {
+    delete(buildDir)
+}

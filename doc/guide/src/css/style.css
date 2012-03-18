@@ -1,0 +1,66 @@
+body {
+    padding-top: 60px;
+}
+
+.navbar .container {
+    text-align: center;
+}
+.navbar .container h1 {
+    display: block;
+    font-weight: normal;
+}
+.navbar .container h1 a {
+    color: white;
+}
+.navbar .container h1 a:hover {
+    color: white;
+}
+.navbar .container h1 a:active {
+    color: white;
+}
+.chapter .toc {
+    float: right;
+    border: 1px solid #aaa;
+    padding: 1em;
+    margin: 1em;
+    background-color: white;
+}
+.index .toc > ul {
+    margin-bottom: 1em !important;
+}
+.index .toc > ul >li > a {
+    font-weight: bold;
+}
+.toc ul {
+    margin: 0;
+}
+.toc li {
+    list-style: none;
+}
+.toc_number { padding-right: 0.5em; }
+
+.main h1 {
+    margin-bottom: 20px;
+
+}
+
+#footer {
+    margin-top: 30px;
+}
+.header {
+    margin-bottom: 30px;
+}
+.pager {
+    text-align: center;
+    position: relative;
+}
+.pager .previous, .pager .next {
+    position: absolute;
+    top: 0;
+}
+.pager .previous {
+    left: 0;
+}
+.pager .next {
+    right: 0;
+}

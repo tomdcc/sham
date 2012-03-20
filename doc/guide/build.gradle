@@ -24,7 +24,12 @@ task tokeniseManual(type: Copy) {
 	from "src"
 	into "$buildDir/manual-tokenised"
 
-    def substitutionProperties = [:]
+    def substitutionProperties = [
+        'sham-version': project.version,
+        'github-url': 'https://github.com/tomdcc/sham',
+        'sham-website': 'https://github.com/tomdcc/sham',
+        'javadoc-url': '../api/index.html'
+    ]
 	inputs.properties(substitutionProperties)
 
 	def tokenisableExtensions = ["md", "html"]

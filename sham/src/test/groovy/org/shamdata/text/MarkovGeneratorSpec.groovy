@@ -6,6 +6,8 @@ import spock.lang.Unroll
 
 class MarkovGeneratorSpec extends Specification {
 
+    static final END_OF_SENTENCE_CHARS = ['!', '?', '.', '"']
+
     MarkovGenerator generator
 
     def setup() {
@@ -20,7 +22,7 @@ class MarkovGeneratorSpec extends Specification {
         then: 'get something looking like a sentence'
             sentence
             sentence.length() > 0
-            sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+            sentence.substring(sentence.length() - 1) in END_OF_SENTENCE_CHARS
     }
 
     def "nextSentence returns new no longer than specified length"() {
@@ -30,7 +32,7 @@ class MarkovGeneratorSpec extends Specification {
         then: 'get something looking like a sentence no longer than specified length'
 			1000.times {
 				def sentence = generator.nextSentence(max)
-				assert sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+				assert sentence.substring(sentence.length() - 1) in END_OF_SENTENCE_CHARS
 				assert sentence
 				assert sentence.length() > 0
 				assert sentence.length() <= max
@@ -85,6 +87,20 @@ class MarkovGeneratorSpec extends Specification {
             }
         where:
             num << [1, 3, 5]
+    }
+
+    def "nextParagraph produces normal looking number of quotes"() {
+        when: 'ask for a number of paragraphs'
+            def paragraphs = generator.nextParagraphs(10000)
+
+        then: "paragraphs don't have abnormal number of quotes"
+            paragraphs.each { paragraph ->
+                def wordCount = paragraph.split(/[!.? ]/).length
+                def quoteCount = paragraph.toCharArray().findAll { it == '"'}.size()
+                if(wordCount > 20) {
+                    assert quoteCount < wordCount / 3
+                }
+            }
     }
 
 

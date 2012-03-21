@@ -9,6 +9,7 @@ import org.shamdata.person.PersonGenerator
 import org.shamdata.text.MarkovGenerator
 import org.shamdata.text.SpewGenerator
 import org.shamdata.image.ImagePicker
+import org.shamdata.text.MarkovGeneratorSpec
 
 class ShamSpec extends Specification {
 
@@ -107,7 +108,7 @@ class ShamSpec extends Specification {
         then: 'get something looking like a sentence'
             sentence
             sentence.length() > 0
-            sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+            sentence.substring(sentence.length() - 1) in MarkovGeneratorSpec.END_OF_SENTENCE_CHARS
     }
 
     def "nextSentence with max chars returns new sentence"() {
@@ -121,7 +122,7 @@ class ShamSpec extends Specification {
             sentence
             sentence.length() > 0
             sentence.length() <= 30
-            sentence.substring(sentence.length() - 1) in ['!', '?', '.']
+            sentence.substring(sentence.length() - 1) in MarkovGeneratorSpec.END_OF_SENTENCE_CHARS
     }
 
     def "nextParagraph returns new paragraph"() {

@@ -19,7 +19,8 @@ public class MarkovGenerator implements ShamGenerator {
 
     private static final String sentenceEndChars = ".!?";
 
-    private Map<List<String>,List<String>> table;
+    private Map<List<String>,List<String>> pairTable;
+    private Map<String,List<String>> singleWordTable;
 
     /**
      * Initialiser. Should be called before calls to any of the
@@ -33,7 +34,7 @@ public class MarkovGenerator implements ShamGenerator {
     }
 
     private void parse(InputStream stream) {
-        table = new Parser().parse(stream);
+        new Parser().parse(stream);
     }
 
     /**
@@ -114,18 +115,26 @@ public class MarkovGenerator implements ShamGenerator {
         lastWords.add(null);
         int numSentences = 0;
         boolean inSentence = false;
+        boolean inQuote = false;
         while(numSentences < totalSentences) {
-            List<String> words = table.get(lastWords);
+            List<String> words = pairTable.get(lastWords);
+            if(words == null) {
+                // no hit for the digram, try just the last word
+                words = singleWordTable.get(lastWords.get(1));
+            }
             if(words == null) {
                 // hit end of paragraph pair, nothing directly following. start again
-                words = table.get(Arrays.<String>asList(null, null));
+                words = pairTable.get(Arrays.<String>asList(null, null));
             }
             String nextWord = words.get(random.nextInt(words.size()));
-
             if(nextWord.length() == 1 && sentenceEndChars.indexOf(nextWord.charAt(0)) != -1) {
                 out.append(nextWord);
+                if(inQuote) {
+                    out.append('"');
+                }
                 numSentences++;
                 inSentence = false;
+                inQuote = false;
                 lastWords.remove(0);
                 lastWords.add(null); // look up
             } else {
@@ -140,6 +149,9 @@ public class MarkovGenerator implements ShamGenerator {
                     out.append(" ");
                 }
                 out.append(nextWord);
+                if(nextWord.indexOf('"') != -1) {
+                    inQuote = true;
+                }
             }
             lastWords.remove(0);
             lastWords.add(nextWord);
@@ -152,13 +164,13 @@ public class MarkovGenerator implements ShamGenerator {
         this.random = random;
     }
 
-    private static class Parser {
-        private Map<List<String>,List<String>> table;
+    private class Parser {
 
         String w1, w2;
 
-        Map<List<String>, List<String>> parse(InputStream stream) {
-            table = new HashMap<List<String>, List<String>>();
+        void parse(InputStream stream) {
+            MarkovGenerator.this.singleWordTable = new HashMap<String, List<String>>();
+            MarkovGenerator.this.pairTable = new HashMap<List<String>, List<String>>();
 
             for(List<String> paragraph : readParagraphs(stream)) {
                 w1 = null;
@@ -167,6 +179,10 @@ public class MarkovGenerator implements ShamGenerator {
                     for(String word : line.split(" ")) {
                         if(word.isEmpty()) {
                             continue;
+                        }
+                        if(word.endsWith("\"")) {
+                            // strip off ending quote, mucks up end of sentence detection
+                            word = word.substring(0, word.length() - 1);
                         }
                         int lastCharPlace = word.length() - 1;
                         char lastChar = word.charAt(lastCharPlace);
@@ -188,16 +204,28 @@ public class MarkovGenerator implements ShamGenerator {
                     }
                 }
             }
-
-            return table;
         }
 
         private void addWord(String word) {
-            List<String> key = Arrays.asList(w1, w2);
-            List<String> value = table.get(key);
+            addWordToSingleWordTable(word);
+            addWordToPairTable(word);
+        }
+
+        private void addWordToSingleWordTable(String word) {
+            List<String> value = MarkovGenerator.this.singleWordTable.get(w2);
             if(value == null) {
                 value = new ArrayList<String>();
-                table.put(key, value);
+                MarkovGenerator.this.singleWordTable.put(w2, value);
+            }
+            value.add(word);
+        }
+
+        private void addWordToPairTable(String word) {
+            List<String> key = Arrays.asList(w1, w2);
+            List<String> value = MarkovGenerator.this.pairTable.get(key);
+            if(value == null) {
+                value = new ArrayList<String>();
+                MarkovGenerator.this.pairTable.put(key, value);
             }
             value.add(word);
         }

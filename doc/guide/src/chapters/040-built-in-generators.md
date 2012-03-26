@@ -107,7 +107,7 @@ gives the following output:
 
 ## Product Name
 
-Sham has a product name generator based on a Sped definition file. See the
+Sham has a product name generator based on a Spew definition file. See the
 following output:
 
     Sham sham = new Sham();

@@ -1,11 +1,13 @@
 package grails.plugin.sham
 
-import grails.plugin.spock.ControllerSpec
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 import spock.lang.Unroll
 import org.shamdata.Sham
 import org.apache.log4j.Logger
 
-class ShamControllerSpec extends ControllerSpec {
+@TestFor(ShamController)
+class ShamControllerSpec extends Specification {
 
     def fixtureLoader
 	def shamLog
@@ -32,7 +34,7 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to home page'
-            controller.redirectArgs.uri.startsWith("/?_nocache=")
+            response.redirectedUrl.startsWith("/?_nocache=")
     }
 
 	@Unroll
@@ -46,7 +48,7 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to target uri'
-            controller.redirectArgs.uri.startsWith("$targetUri${join}_nocache=")
+            response.redirectedUrl.startsWith("$targetUri${join}_nocache=")
 
 		where:
 			targetUri         | join
@@ -66,7 +68,7 @@ class ShamControllerSpec extends ControllerSpec {
             1 * fixtureLoader.load(fixtureNames)
 
         and: 'browser was redirected to target uri'
-            controller.redirectArgs.url.startsWith("$targetUrl${join}_nocache=")
+            response.redirectedUrl.startsWith("$targetUrl${join}_nocache=")
 		where:
 			targetUrl                          | join
 			'http:/www.foo.com/someTarget/foo' | '?'
@@ -86,7 +88,7 @@ class ShamControllerSpec extends ControllerSpec {
 			1 * shamLog.info(expectedValue)
 		
 		and: 'returns seed'
-			controller.renderArgs.text == seed
+			response.text == seed as String
 		
 		where:
 			seed | prefix  | expectedValue
@@ -108,7 +110,7 @@ class ShamControllerSpec extends ControllerSpec {
 			1 * shamLog.info(expectedLog)
 
 		and: 'returns seed'
-			controller.renderArgs.text == seed
+			response.text == seed as String
 
 		where:
 			seed | prefix  | expectedLog
@@ -122,7 +124,7 @@ class ShamControllerSpec extends ControllerSpec {
 			controller.getSeed()
 
 		then: 'returns seed'
-			controller.renderArgs.text == sham.seed
+			response.text == sham.seed as String
 	}
 
 }

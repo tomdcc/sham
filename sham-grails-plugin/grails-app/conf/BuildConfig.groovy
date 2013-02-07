@@ -24,19 +24,20 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.13'
 		compile 'org.shamdata:sham:0.3'
 
-		test "org.objenesis:objenesis:1.2"
     }
 
     plugins {
-		build(':release:1.0.1') {
+		build(':release:2.2.0') {
 			export = false
 		}
-        test(":spock:0.5-groovy-1.7") {
+        // since the above seems to add this to my application.properties without asking anyway...
+		build(':rest-client-builder:1.0.3') {
+			export = false
+		}
+
+        test(":spock:0.7") {
 			export = false
 		}
     }

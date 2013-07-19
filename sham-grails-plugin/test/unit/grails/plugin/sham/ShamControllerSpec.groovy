@@ -10,6 +10,7 @@ import org.apache.log4j.Logger
 class ShamControllerSpec extends Specification {
 
     def fixtureLoader
+    def oldFixtureLoader
 	def shamLog
 	def sham
     static final String[] fixtureNames = ["fixture1", "fixture2", "fixture3" ] as String[]
@@ -17,6 +18,7 @@ class ShamControllerSpec extends Specification {
 	
 	
     def setup() {
+        oldFixtureLoader = Mock(OldFixtureLoader)
         fixtureLoader = Mock(FixtureLoader)
         controller.fixtureLoader = fixtureLoader
 		shamLog = Mock(Logger)
@@ -28,24 +30,42 @@ class ShamControllerSpec extends Specification {
     def "controller can apply fixtures and redirect to home page"() {
         when: 'call controller with fixtures only'
             controller.params.fixtures = fixtureNames
+            controller.params.otherParam = 'foo'
             controller.run()
 
         then: 'fixture loader was called'
-            1 * fixtureLoader.load(fixtureNames)
+            1 * fixtureLoader.load(fixtureNames, [otherParam: 'foo'])
 
         and: 'browser was redirected to home page'
             response.redirectedUrl.startsWith("/?_nocache=")
     }
 
-	@Unroll
+    def "controller can apply fixtures to old fixture loader and redirect to home page"() {
+        given:
+            controller.fixtureLoader = oldFixtureLoader
+
+        when: 'call controller with fixtures only'
+            controller.params.fixtures = fixtureNames
+            controller.params.otherParam = 'foo'
+            controller.run()
+
+        then: 'old fixture loader was called without params'
+            1 * oldFixtureLoader.load(fixtureNames)
+
+        and: 'browser was redirected to home page'
+            response.redirectedUrl.startsWith("/?_nocache=")
+    }
+
+    @Unroll
     def "controller can apply fixtures and redirect to a uri"() {
         when: 'call controller with fixtures and redirect uri'
             controller.params.fixtures = fixtureNames
             controller.params.redirectUri = targetUri
+            controller.params.otherParam = 'foo'
             controller.run()
 
         then: 'fixture loader was called'
-            1 * fixtureLoader.load(fixtureNames)
+            1 * fixtureLoader.load(fixtureNames, [otherParam: 'foo'])
 
         and: 'browser was redirected to target uri'
             response.redirectedUrl.startsWith("$targetUri${join}_nocache=")
@@ -62,10 +82,11 @@ class ShamControllerSpec extends Specification {
             String[] fixtureNames = ["fixture1", "fixture2", "fixture3" ] as String[]
             controller.params.fixtures = fixtureNames
             controller.params.redirectUrl = targetUrl
+            controller.params.otherParam = 'foo'
             controller.run()
 
         then: 'fixture loader was called'
-            1 * fixtureLoader.load(fixtureNames)
+            1 * fixtureLoader.load(fixtureNames, [otherParam: 'foo'])
 
         and: 'browser was redirected to target uri'
             response.redirectedUrl.startsWith("$targetUrl${join}_nocache=")
@@ -133,5 +154,10 @@ class ShamControllerSpec extends Specification {
 // we don't want to depend on real fixture loader, since grails 1.3.7
 // doesn't do the exclusions properly when running test-app -war
 interface FixtureLoader {
+    def load(String[] fixtures, Map params);
+}
+
+// for testing compatibility against old version which doesn't take parameters
+interface OldFixtureLoader {
     def load(String[] fixtures);
 }

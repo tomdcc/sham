@@ -6,7 +6,7 @@ import org.apache.log4j.Level
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class ShamGrailsPlugin {
-    def version = "0.3"
+    def version = "0.3.1"
     def grailsVersion = "1.3.7 > *"
     def dependsOn = [:]
     def pluginExcludes = [

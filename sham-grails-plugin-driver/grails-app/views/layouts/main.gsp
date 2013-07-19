@@ -13,14 +13,7 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<!-- CSS concatenated and minified via ant build script-->
-	%{--<link rel="stylesheet" href="/css/main.css">--}%
-	<!-- end CSS-->
-
-	%{--<script src="js/libs/modernizr-2.0.6.min.js"></script>--}%
-
-	<r:require module="app"/>
-	<r:layoutResources/>
+	<link rel="stylesheet" href="/css/main.css">
 
 </head>
 
@@ -38,11 +31,6 @@
 
 	</footer>
 </div> <!--! end of #container -->
-
-<r:layoutResources/>
-
-%{--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>--}%
-%{--<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>--}%
 
 </body>
 </html>

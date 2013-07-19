@@ -9,17 +9,28 @@ class ShamController {
 	def shamLog
 
 	def run = {
-		if(!params.fixtures) {
-			throw new IllegalArgumentException("Please provide fixture list")
+        def fixtures = params.remove('fixtures')
+        def prefix = params.remove('prefix')
+        def redirectUri = params.remove('redirectUri')
+        def redirectUrl = params.remove('redirectUrl')
+        if(!fixtures) {
+            throw new IllegalArgumentException("Please provide fixture list")
 		}
-		shamLog.info("${params.prefix ? params.prefix + ', ' : ''}loading fixtures $params.fixtures, sham seed: $sham.seed")
-		fixtureLoader.load(params.fixtures)
+		shamLog.info("${prefix ? prefix + ', ' : ''}loading fixtures $fixtures, sham seed: $sham.seed")
+
+        try {
+            fixtureLoader.load(fixtures, params)
+        } catch(MissingMethodException e) {
+            // older version of fixtures plugin, parameter passing not supported
+            fixtureLoader.load(fixtures)
+        }
+
 		def redirectArgs
 		def nocache = '_nocache=' + System.currentTimeMillis()
-		if(params.redirectUri) {
-			redirectArgs = [uri: params.redirectUri + joiner(params.redirectUri) + nocache]
-		} else if(params.redirectUrl) {
-			redirectArgs = [url: params.redirectUrl + joiner(params.redirectUrl) + nocache]
+		if(redirectUri) {
+			redirectArgs = [uri: redirectUri + joiner(redirectUri) + nocache]
+		} else if(redirectUrl) {
+			redirectArgs = [url: redirectUrl + joiner(redirectUrl) + nocache]
 		} else {
 			redirectArgs = [uri: '/?' + nocache]
 		}

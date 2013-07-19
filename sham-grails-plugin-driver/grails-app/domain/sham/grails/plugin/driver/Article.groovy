@@ -1,8 +1,6 @@
 package sham.grails.plugin.driver
 
-import org.grails.comments.Commentable
-
-class Article implements Commentable {
+class Article {
 	
 	String headline
 	String teaser

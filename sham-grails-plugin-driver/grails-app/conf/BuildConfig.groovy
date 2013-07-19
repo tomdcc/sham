@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
     }
     dependencies {
-		def webdriverVersion = '2.29.0'
+		def webdriverVersion = '2.33.0'
 		test "org.seleniumhq.selenium:selenium-firefox-driver:$webdriverVersion"
 		test "org.codehaus.geb:geb-spock:0.6.0"
 
@@ -27,22 +27,13 @@ grails.project.dependency.resolution = {
     }
 	
 	plugins {
-		compile ':hibernate:1.3.7'
-		compile ':tomcat:1.3.7'
+		compile ':hibernate:1.3.9'
+		compile ':tomcat:1.3.9'
 
-		compile ':fixtures:1.1'
 		compile ':build-test-data:1.1.2'
-		compile ':sham:0.3'
+		compile ':sham:0.3.1'
 
-		compile ':cache-headers:1.1.5'
-
-		compile ":commentable:0.7.7"
-
-		runtime ":jquery:1.7.1"
-		compile ":cached-resources:1.0"
-		compile ":zipped-resources:1.0"
-		compile ":resources:1.1.6"
-		runtime ":lesscss-resources:0.6.1"
+		runtime ':fixtures:1.2'
 
 		test ":spock:0.5-groovy-1.7"
 		test ":geb:0.6.0"

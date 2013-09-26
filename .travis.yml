@@ -4,7 +4,7 @@ jdk:
 branches:
   only:
   - master
-install: ./gradlew assemble
+install: ./gradlew assemble testClasses
 script: ./gradlew test dist
 after_success: ./gradlew uploadSnapshots
 env:

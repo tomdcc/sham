@@ -77,7 +77,7 @@ uploadArchives {
 			fixPom(pom);
             beforeDeployment { deployment -> signPom(deployment) }
   			repository(url: sonatypeRepo) {
-				authentication(userName: sonatypeUsername, password: sonatypePassword)
+				authentication(userName: sonatypeOssUsername, password: sonatypeOssPassword)
             }
 		}
 

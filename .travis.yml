@@ -4,4 +4,8 @@ jdk:
 branches:
   only:
   - master
-script: ./gradlew clean test
+script: ./gradlew clean test dist uploadSnapshots
+env:
+  global:
+  - secure: "EBSXu3/QaGLtzltP8MLtoHFqj9RQsrL4EtnOzS4v673m1QBksob8so5kPEJ3zGNlMSW7/nonLKQbfSuzKmgWUKqGb8ueQbJud6A6cQLBiMvJelbBHMk+ADXuK/+8mSfr5Z1vJ/MP9g3ujUpXl9F+4M39Kt7UQUzyZugBnugokQc="
+  - secure: "QQaHGfYlxZac0YJ3bBLYZKj4fUEnMIsgqLfaoEMFfKKq9kHedrv3o9EmiTMLMlZpxagfBHudUzcmeNHY1gv4ALRN833t/1/a5cuxBkJq0OuHxnpvQmNa24o2xKP+FkwK+yRtK840scGYaAC3UkcTxwkBTTAguNPgZmU6O+HyILM="

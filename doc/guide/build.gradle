@@ -7,15 +7,6 @@ buildscript {
 	}
 }
 
-//def archivesBaseName = "sham-user-guide"
-
-modifyPom = { pom ->
-	pom.project {
-		name "Sham User Guide"
-		description "Sham user guide and API reference."
-	}
-}
-
 task tokeniseManual(type: Copy) {
 	from "src"
 	into "$buildDir/manual-tokenised"

@@ -14,7 +14,7 @@ doc/api.
 
 Feedback / Bugs
 ===============
-Please send any feedback to tom@energizedwork.com or raise a ticket
+Please send any feedback to github@tomd.cc or raise a ticket
 in the GitHub issue tracker at https://github.com/tomdcc/sham/issues.
 
 Contribute

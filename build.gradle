@@ -7,11 +7,11 @@ subprojects {
 
 
 
-task dist(type: Zip, dependsOn: [':sham:javadoc', ':sham:jar', 'doc/guide:compileManual']) {
-    def shamProject = project(':sham')
+task dist(type: Zip, dependsOn: [':sham-core:javadoc', ':sham-core:jar', 'doc/guide:compileManual']) {
+    def coreProject = project(':sham-core')
     def docProject = project(':doc/guide')
-    archiveName = "$buildDir/sham-${shamProject.version}.zip"
-    def archiveBaseDir = "sham-${shamProject.version}"
+    archiveName = "$buildDir/sham-${coreProject.version}.zip"
+    def archiveBaseDir = "sham-${coreProject.version}"
 
     from(projectDir) {
         include "LICENSE"
@@ -21,15 +21,15 @@ task dist(type: Zip, dependsOn: [':sham:javadoc', ':sham:jar', 'doc/guide:compil
         include "README.TXT"
         into archiveBaseDir
     }
-    from(new File(shamProject.buildDir, 'libs')) {
-        include "sham-${shamProject.version}.jar"
+    from(new File(coreProject.buildDir, 'libs')) {
+        include "sham-core-${coreProject.version}.jar"
         into archiveBaseDir
     }
-    from(new File(shamProject.projectDir, 'src/main')) {
+    from(new File(coreProject.projectDir, 'src/main')) {
         include '**/*'
         into "$archiveBaseDir/src"
     }
-    from(new File(shamProject.buildDir, 'docs/javadoc')) {
+    from(new File(coreProject.buildDir, 'docs/javadoc')) {
         include '**/*'
         into "$archiveBaseDir/doc/api"
     }

@@ -1,1 +1,1 @@
-include 'sham', 'doc/guide'
+include 'sham-core', 'doc/guide'

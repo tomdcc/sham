@@ -2,7 +2,7 @@ subprojects {
 	repositories {
 		mavenCentral()
 	}
-	version = '0.3'
+	version = '0.4-SNAPSHOT'
 }
 
 
@@ -37,4 +37,8 @@ task dist(type: Zip, dependsOn: [':sham:javadoc', ':sham:jar', 'doc/guide:compil
         include '**/*'
         into "$archiveBaseDir/doc/guide"
     }
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.8'
 }

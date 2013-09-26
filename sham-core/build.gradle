@@ -1,20 +1,14 @@
-apply plugin: "java"
-apply plugin: "groovy"
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply from: 'tasks.gradle'
 
 sourceCompatibility = 1.5
 
-group = 'org.shamdata'
-artifactId = 'sham'
-
 dependencies {
-  groovy "org.codehaus.groovy:groovy-all:1.8.0"
-  compile "javax.servlet:servlet-api:2.5"
+  provided "javax.servlet:servlet-api:2.5"
+  testCompile "org.codehaus.groovy:groovy-all:1.8.0"
   testCompile "org.spockframework:spock-core:0.5-groovy-1.8"
-  testCompile "org.springframework:spring-test:3.1.0.RELEASE"
-  testCompile "org.springframework:spring-core:3.1.0.RELEASE"
+  testCompile "org.springframework:spring-test:3.2.0.RELEASE"
+  testCompile "org.springframework:spring-core:3.2.0.RELEASE"
 }
 
 signing {

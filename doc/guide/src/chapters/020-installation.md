@@ -15,6 +15,6 @@ If your build system is Maven or is able to include jars from Maven Central
 
 **groupId:** `org.shamdata`
 
-**artifactId:** `sham`
+**artifactId:** `sham-core`
 
-**version:** `0.3`
+**version:** `0.4-SNAPSHOT`

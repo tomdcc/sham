@@ -7,7 +7,7 @@ buildscript {
 	}
 }
 
-archivesBaseName = "sham-user-guide"
+//def archivesBaseName = "sham-user-guide"
 
 modifyPom = { pom ->
 	pom.project {
@@ -54,7 +54,4 @@ task compileManual {
 	doLast {
 		new markdown2book.Generator(source, destination, encoding).generate()
 	}
-}
-task ('clean', type:Delete) {
-    delete(buildDir)
 }
